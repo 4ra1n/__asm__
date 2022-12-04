@@ -7,10 +7,10 @@ import org.objectweb.asm.*;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public final class ASMInlineCore extends ClassVisitor {
+public final class ASMVisitor extends ClassVisitor {
 
     private static final Type ASM_BLOCK = Type
-            .getMethodType(Type.VOID_TYPE, Type.getType(ASMBlock.class));
+            .getMethodType(Type.VOID_TYPE, Type.getType(ASMOpcodes.class));
     @SuppressWarnings("all")
     private static final Handle LAMBDA_FACTORY_HANDLE = new Handle(
             Opcodes.H_INVOKESTATIC,
@@ -28,8 +28,8 @@ public final class ASMInlineCore extends ClassVisitor {
     private String name;
     boolean rewrite;
 
-    public ASMInlineCore(ClassVisitor classVisitor, ClassLoader loader,
-                         Map<MethodInfo, ClassWriter> methods) {
+    public ASMVisitor(ClassVisitor classVisitor, ClassLoader loader,
+                      Map<MethodInfo, ClassWriter> methods) {
         super(Opcodes.ASM9, classVisitor);
         this.loader = loader;
         this.methods = methods;
@@ -54,7 +54,7 @@ public final class ASMInlineCore extends ClassVisitor {
             @Override
             public void visitMethodInsn(int opcode, String owner, String name, String descriptor,
                                         boolean isInterface) {
-                if (opcode == Opcodes.INVOKESTATIC && owner.equals("com/sec/asm/core/ASMBlock")
+                if (opcode == Opcodes.INVOKESTATIC && owner.equals("com/sec/asm/core/ASM")
                         && isInlineName(name)
                         && isInlineDescriptor(descriptor)) {
                     return;
@@ -77,10 +77,10 @@ public final class ASMInlineCore extends ClassVisitor {
                                         String methodName = handle.getName();
                                         Class<?> klass = generateInlineClass(
                                                 new MethodInfo(methodName, Constants.BLOCK_TYPE_DESC));
-                                        ASMBlock block = new VisitingASMBlock(this);
+                                        ASMOpcodes block = new ASMCoreVisitor(this);
                                         LookupUtil.lookup().findStatic(klass, methodName, Constants.BLOCK_TYPE)
                                                 .invokeExact(block);
-                                        ASMInlineCore.this.rewrite = true;
+                                        ASMVisitor.this.rewrite = true;
                                     } catch (Throwable e) {
                                         throw new RuntimeException(e);
                                     }

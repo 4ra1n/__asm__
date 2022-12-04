@@ -19,7 +19,7 @@ public final class PatchProcessor {
             return bytes;
         }
         ClassWriter rewriter = new ClassWriter(reader, 0);
-        ASMInlineCore inline = new ASMInlineCore(rewriter, loader, methods);
+        ASMVisitor inline = new ASMVisitor(rewriter, loader, methods);
         reader.accept(inline, 0);
         if (inline.rewrite) {
             ClassWriter writer = new LoaderBoundClassWriter(ClassWriter.COMPUTE_FRAMES, loader);

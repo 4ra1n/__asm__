@@ -7,31 +7,31 @@ import java.lang.invoke.MethodType;
 import static org.objectweb.asm.Opcodes.*;
 
 @SuppressWarnings("all")
-public class VisitingASMBlock implements ASMBlock {
+public class ASMCoreVisitor implements ASMOpcodes,ASM {
 
     private final MethodVisitor visitor;
 
-    public VisitingASMBlock(MethodVisitor visitor) {
+    public ASMCoreVisitor(MethodVisitor visitor) {
         this.visitor = visitor;
     }
 
     @Override
-    public ASMBlock INIT() {
+    public ASMOpcodes INIT() {
         return this;
     }
 
     @Override
-    public ASMBlock NOP() {
+    public ASMOpcodes NOP() {
         return visitInsn(NOP);
     }
 
     @Override
-    public ASMBlock ACONST_NULL() {
+    public ASMOpcodes ACONST_NULL() {
         return visitInsn(ACONST_NULL);
     }
 
     @Override
-    public ASMBlock INT(int value) {
+    public ASMOpcodes INT(int value) {
         MethodVisitor visitor = this.visitor;
         if (value >= -1 && value <= 5) {
             visitor.visitInsn(value + 3);
@@ -46,7 +46,7 @@ public class VisitingASMBlock implements ASMBlock {
     }
 
     @Override
-    public ASMBlock LONG(long value) {
+    public ASMOpcodes LONG(long value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0L || value == 1L) {
             visitor.visitInsn((int) (value + 9));
@@ -57,7 +57,7 @@ public class VisitingASMBlock implements ASMBlock {
     }
 
     @Override
-    public ASMBlock FLOAT(float value) {
+    public ASMOpcodes FLOAT(float value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0.0F || value == 1.0F || value == 2.0F) {
             visitor.visitInsn((int) value + 11);
@@ -68,7 +68,7 @@ public class VisitingASMBlock implements ASMBlock {
     }
 
     @Override
-    public ASMBlock DOUBLE(double value) {
+    public ASMOpcodes DOUBLE(double value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0.0 || value == 1.0) {
             visitor.visitInsn((int) value + 14);
@@ -79,22 +79,22 @@ public class VisitingASMBlock implements ASMBlock {
     }
 
     @Override
-    public ASMBlock LDC(String value) {
+    public ASMOpcodes LDC(String value) {
         return visitLdcInsn(value);
     }
 
     @Override
-    public ASMBlock LDC(Class<?> type) {
+    public ASMOpcodes LDC(Class<?> type) {
         return visitLdcInsn(Type.getType(type));
     }
 
     @Override
-    public ASMBlock LDC(Type type) {
+    public ASMOpcodes LDC(Type type) {
         return visitLdcInsn(type);
     }
 
     @Override
-    public ASMBlock LDC(MethodType type) {
+    public ASMOpcodes LDC(MethodType type) {
         Class<?>[] $parameters = type.parameterArray();
         int j = $parameters.length;
         Type[] parameters = new Type[j];
@@ -105,1188 +105,973 @@ public class VisitingASMBlock implements ASMBlock {
     }
 
     @Override
-    public ASMBlock LDC(Handle handle) {
+    public ASMOpcodes LDC(Handle handle) {
         return visitLdcInsn(handle);
     }
 
     @Override
-    public ASMBlock LDC(ConstantDynamic constantDynamic) {
+    public ASMOpcodes LDC(ConstantDynamic constantDynamic) {
         return visitLdcInsn(constantDynamic);
     }
 
     @Override
-    public ASMBlock LDC_W() {
+    public ASMOpcodes LDC_W() {
         throw new RuntimeException("ASM NOT SUPPORT LDC_W");
     }
 
     @Override
-    public ASMBlock LDC_2W() {
+    public ASMOpcodes LDC_2W() {
         throw new RuntimeException("ASM NOT SUPPORT LDC_2W");
     }
 
     @Override
-    public ASMBlock LCONST_0() {
+    public ASMOpcodes LCONST_0() {
         return LONG(0L);
     }
 
     @Override
-    public ASMBlock LCONST_1() {
+    public ASMOpcodes LCONST_1() {
         return LONG(1L);
     }
 
     @Override
-    public ASMBlock DCONST_0() {
+    public ASMOpcodes DCONST_0() {
         return DOUBLE(0.0D);
     }
 
     @Override
-    public ASMBlock DCONST_1() {
+    public ASMOpcodes DCONST_1() {
         return DOUBLE(1.0D);
     }
 
     @Override
-    public ASMBlock FCONST_0() {
+    public ASMOpcodes FCONST_0() {
         return FLOAT(0.0F);
     }
 
     @Override
-    public ASMBlock FCONST_1() {
+    public ASMOpcodes FCONST_1() {
         return FLOAT(1.0F);
     }
 
     @Override
-    public ASMBlock FCONST_2() {
+    public ASMOpcodes FCONST_2() {
         return FLOAT(2.0F);
     }
 
     @Override
-    public ASMBlock ICONST_M1() {
+    public ASMOpcodes ICONST_M1() {
         return INT(-1);
     }
 
     @Override
-    public ASMBlock ICONST_0() {
+    public ASMOpcodes ICONST_0() {
         return INT(0);
     }
 
     @Override
-    public ASMBlock ICONST_1() {
+    public ASMOpcodes ICONST_1() {
         return INT(1);
     }
 
     @Override
-    public ASMBlock ICONST_2() {
+    public ASMOpcodes ICONST_2() {
         return INT(2);
     }
 
     @Override
-    public ASMBlock ICONST_3() {
+    public ASMOpcodes ICONST_3() {
         return INT(3);
     }
 
     @Override
-    public ASMBlock ICONST_4() {
+    public ASMOpcodes ICONST_4() {
         return INT(4);
     }
 
     @Override
-    public ASMBlock ICONST_5() {
+    public ASMOpcodes ICONST_5() {
         return INT(5);
     }
 
     @Override
-    public ASMBlock ILOAD(int idx) {
+    public ASMOpcodes ILOAD(int idx) {
         return visitVarInsn(ILOAD, idx);
     }
 
     @Override
-    public ASMBlock LLOAD(int idx) {
+    public ASMOpcodes LLOAD(int idx) {
         return visitVarInsn(LLOAD, idx);
     }
 
     @Override
-    public ASMBlock FLOAD(int idx) {
+    public ASMOpcodes FLOAD(int idx) {
         return visitVarInsn(FLOAD, idx);
     }
 
     @Override
-    public ASMBlock DLOAD(int idx) {
+    public ASMOpcodes DLOAD(int idx) {
         return visitVarInsn(DLOAD, idx);
     }
 
     @Override
-    public ASMBlock ALOAD(int idx) {
+    public ASMOpcodes ALOAD(int idx) {
         return visitVarInsn(ALOAD, idx);
     }
 
     @Override
-    public ASMBlock IALOAD() {
+    public ASMOpcodes IALOAD() {
         return visitInsn(IALOAD);
     }
 
     @Override
-    public ASMBlock LALOAD() {
+    public ASMOpcodes LALOAD() {
         return visitInsn(LALOAD);
     }
 
     @Override
-    public ASMBlock FALOAD() {
+    public ASMOpcodes FALOAD() {
         return visitInsn(FALOAD);
     }
 
     @Override
-    public ASMBlock DALOAD() {
+    public ASMOpcodes DALOAD() {
         return visitInsn(DALOAD);
     }
 
     @Override
-    public ASMBlock AALOAD() {
+    public ASMOpcodes AALOAD() {
         return visitInsn(AALOAD);
     }
 
     @Override
-    public ASMBlock BALOAD() {
+    public ASMOpcodes BALOAD() {
         return visitInsn(BALOAD);
     }
 
     @Override
-    public ASMBlock CALOAD() {
+    public ASMOpcodes CALOAD() {
         return visitInsn(CALOAD);
     }
 
     @Override
-    public ASMBlock SALOAD() {
+    public ASMOpcodes SALOAD() {
         return visitInsn(SALOAD);
     }
 
     @Override
-    public ASMBlock ISTORE(int idx) {
+    public ASMOpcodes ISTORE(int idx) {
         return visitVarInsn(ISTORE, idx);
     }
 
     @Override
-    public ASMBlock LSTORE(int idx) {
+    public ASMOpcodes LSTORE(int idx) {
         return visitVarInsn(LSTORE, idx);
     }
 
     @Override
-    public ASMBlock FSTORE(int idx) {
+    public ASMOpcodes FSTORE(int idx) {
         return visitVarInsn(FSTORE, idx);
     }
 
     @Override
-    public ASMBlock DSTORE(int idx) {
+    public ASMOpcodes DSTORE(int idx) {
         return visitVarInsn(DSTORE, idx);
     }
 
     @Override
-    public ASMBlock ASTORE(int idx) {
+    public ASMOpcodes ASTORE(int idx) {
         return visitVarInsn(ASTORE, idx);
     }
 
     @Override
-    public ASMBlock IASTORE() {
+    public ASMOpcodes IASTORE() {
         return visitInsn(IASTORE);
     }
 
     @Override
-    public ASMBlock LASTORE() {
+    public ASMOpcodes LASTORE() {
         return visitInsn(LASTORE);
     }
 
     @Override
-    public ASMBlock FASTORE() {
+    public ASMOpcodes FASTORE() {
         return visitInsn(FASTORE);
     }
 
     @Override
-    public ASMBlock DASTORE() {
+    public ASMOpcodes DASTORE() {
         return visitInsn(DASTORE);
     }
 
     @Override
-    public ASMBlock AASTORE() {
+    public ASMOpcodes AASTORE() {
         return visitInsn(AASTORE);
     }
 
     @Override
-    public ASMBlock BASTORE() {
+    public ASMOpcodes BASTORE() {
         return visitInsn(BASTORE);
     }
 
     @Override
-    public ASMBlock CASTORE() {
+    public ASMOpcodes CASTORE() {
         return visitInsn(CASTORE);
     }
 
     @Override
-    public ASMBlock SASTORE() {
+    public ASMOpcodes SASTORE() {
         return visitInsn(SASTORE);
     }
 
     @Override
-    public ASMBlock POP() {
+    public ASMOpcodes POP() {
         return visitInsn(POP);
     }
 
     @Override
-    public ASMBlock POP2() {
+    public ASMOpcodes POP2() {
         return visitInsn(POP2);
     }
 
     @Override
-    public ASMBlock DUP() {
+    public ASMOpcodes DUP() {
         return visitInsn(DUP);
     }
 
     @Override
-    public ASMBlock DUPX1() {
+    public ASMOpcodes DUPX1() {
         return visitInsn(DUP_X1);
     }
 
     @Override
-    public ASMBlock DUPX2() {
+    public ASMOpcodes DUPX2() {
         return visitInsn(DUP_X2);
     }
 
     @Override
-    public ASMBlock DUP2() {
+    public ASMOpcodes DUP2() {
         return visitInsn(DUP2);
     }
 
     @Override
-    public ASMBlock DUP2X1() {
+    public ASMOpcodes DUP2X1() {
         return visitInsn(DUP2_X1);
     }
 
     @Override
-    public ASMBlock DUP2X2() {
+    public ASMOpcodes DUP2X2() {
         return visitInsn(DUP2_X2);
     }
 
     @Override
-    public ASMBlock SWAP() {
+    public ASMOpcodes SWAP() {
         return visitInsn(SWAP);
     }
 
     @Override
-    public ASMBlock IADD() {
+    public ASMOpcodes IADD() {
         return visitInsn(IADD);
     }
 
     @Override
-    public ASMBlock LADD() {
+    public ASMOpcodes LADD() {
         return visitInsn(LADD);
     }
 
     @Override
-    public ASMBlock FADD() {
+    public ASMOpcodes FADD() {
         return visitInsn(FADD);
     }
 
     @Override
-    public ASMBlock DADD() {
+    public ASMOpcodes DADD() {
         return visitInsn(DADD);
     }
 
     @Override
-    public ASMBlock ISUB() {
+    public ASMOpcodes ISUB() {
         return visitInsn(ISUB);
     }
 
     @Override
-    public ASMBlock LSUB() {
+    public ASMOpcodes LSUB() {
         return visitInsn(LSUB);
     }
 
     @Override
-    public ASMBlock FSUB() {
+    public ASMOpcodes FSUB() {
         return visitInsn(FSUB);
     }
 
     @Override
-    public ASMBlock DSUB() {
+    public ASMOpcodes DSUB() {
         return visitInsn(DSUB);
     }
 
     @Override
-    public ASMBlock IMUL() {
+    public ASMOpcodes IMUL() {
         return visitInsn(IMUL);
     }
 
     @Override
-    public ASMBlock LMUL() {
+    public ASMOpcodes LMUL() {
         return visitInsn(LMUL);
     }
 
     @Override
-    public ASMBlock FMUL() {
+    public ASMOpcodes FMUL() {
         return visitInsn(FMUL);
     }
 
     @Override
-    public ASMBlock DMUL() {
+    public ASMOpcodes DMUL() {
         return visitInsn(DMUL);
     }
 
     @Override
-    public ASMBlock IDIV() {
+    public ASMOpcodes IDIV() {
         return visitInsn(IDIV);
     }
 
     @Override
-    public ASMBlock LDIV() {
+    public ASMOpcodes LDIV() {
         return visitInsn(LDIV);
     }
 
     @Override
-    public ASMBlock FDIV() {
+    public ASMOpcodes FDIV() {
         return visitInsn(FDIV);
     }
 
     @Override
-    public ASMBlock DDIV() {
+    public ASMOpcodes DDIV() {
         return visitInsn(DDIV);
     }
 
     @Override
-    public ASMBlock IREM() {
+    public ASMOpcodes IREM() {
         return visitInsn(IREM);
     }
 
     @Override
-    public ASMBlock LREM() {
+    public ASMOpcodes LREM() {
         return visitInsn(LREM);
     }
 
     @Override
-    public ASMBlock FREM() {
+    public ASMOpcodes FREM() {
         return visitInsn(FREM);
     }
 
     @Override
-    public ASMBlock DREM() {
+    public ASMOpcodes DREM() {
         return visitInsn(DREM);
     }
 
     @Override
-    public ASMBlock INEG() {
+    public ASMOpcodes INEG() {
         return visitInsn(INEG);
     }
 
     @Override
-    public ASMBlock LNEG() {
+    public ASMOpcodes LNEG() {
         return visitInsn(LNEG);
     }
 
     @Override
-    public ASMBlock FNEG() {
+    public ASMOpcodes FNEG() {
         return visitInsn(FNEG);
     }
 
     @Override
-    public ASMBlock DNEG() {
+    public ASMOpcodes DNEG() {
         return visitInsn(DNEG);
     }
 
     @Override
-    public ASMBlock ISHL() {
+    public ASMOpcodes ISHL() {
         return visitInsn(ISHL);
     }
 
     @Override
-    public ASMBlock LSHL() {
+    public ASMOpcodes LSHL() {
         return visitInsn(LSHL);
     }
 
     @Override
-    public ASMBlock ISHR() {
+    public ASMOpcodes ISHR() {
         return visitInsn(ISHR);
     }
 
     @Override
-    public ASMBlock LSHR() {
+    public ASMOpcodes LSHR() {
         return visitInsn(LSHR);
     }
 
     @Override
-    public ASMBlock IUSHR() {
+    public ASMOpcodes IUSHR() {
         return visitInsn(IUSHR);
     }
 
     @Override
-    public ASMBlock LUSHR() {
+    public ASMOpcodes LUSHR() {
         return visitInsn(LUSHR);
     }
 
     @Override
-    public ASMBlock IAND() {
+    public ASMOpcodes IAND() {
         return visitInsn(IAND);
     }
 
     @Override
-    public ASMBlock LAND() {
+    public ASMOpcodes LAND() {
         return visitInsn(LAND);
     }
 
     @Override
-    public ASMBlock IOR() {
+    public ASMOpcodes IOR() {
         return visitInsn(IOR);
     }
 
     @Override
-    public ASMBlock LOR() {
+    public ASMOpcodes LOR() {
         return visitInsn(LOR);
     }
 
     @Override
-    public ASMBlock IXOR() {
+    public ASMOpcodes IXOR() {
         return visitInsn(IXOR);
     }
 
     @Override
-    public ASMBlock LXOR() {
+    public ASMOpcodes LXOR() {
         return visitInsn(LXOR);
     }
 
     @Override
-    public ASMBlock IINC(int idx, int value) {
+    public ASMOpcodes IINC(int idx, int value) {
         visitor.visitIincInsn(idx, value);
         return this;
     }
 
     @Override
-    public ASMBlock I2L() {
+    public ASMOpcodes I2L() {
         return visitInsn(I2L);
     }
 
     @Override
-    public ASMBlock I2F() {
+    public ASMOpcodes I2F() {
         return visitInsn(I2F);
     }
 
     @Override
-    public ASMBlock I2D() {
+    public ASMOpcodes I2D() {
         return visitInsn(I2D);
     }
 
     @Override
-    public ASMBlock L2I() {
+    public ASMOpcodes L2I() {
         return visitInsn(L2I);
     }
 
     @Override
-    public ASMBlock L2F() {
+    public ASMOpcodes L2F() {
         return visitInsn(L2F);
     }
 
     @Override
-    public ASMBlock L2D() {
+    public ASMOpcodes L2D() {
         return visitInsn(L2D);
     }
 
     @Override
-    public ASMBlock F2I() {
+    public ASMOpcodes F2I() {
         return visitInsn(F2I);
     }
 
     @Override
-    public ASMBlock F2L() {
+    public ASMOpcodes F2L() {
         return visitInsn(F2L);
     }
 
     @Override
-    public ASMBlock F2D() {
+    public ASMOpcodes F2D() {
         return visitInsn(F2D);
     }
 
     @Override
-    public ASMBlock D2I() {
+    public ASMOpcodes D2I() {
         return visitInsn(D2I);
     }
 
     @Override
-    public ASMBlock D2L() {
+    public ASMOpcodes D2L() {
         return visitInsn(D2L);
     }
 
     @Override
-    public ASMBlock D2F() {
+    public ASMOpcodes D2F() {
         return visitInsn(D2F);
     }
 
     @Override
-    public ASMBlock I2B() {
+    public ASMOpcodes I2B() {
         return visitInsn(I2B);
     }
 
     @Override
-    public ASMBlock I2C() {
+    public ASMOpcodes I2C() {
         return visitInsn(I2C);
     }
 
     @Override
-    public ASMBlock I2S() {
+    public ASMOpcodes I2S() {
         return visitInsn(I2S);
     }
 
     @Override
-    public ASMBlock LCMP() {
+    public ASMOpcodes LCMP() {
         return visitInsn(LCMP);
     }
 
     @Override
-    public ASMBlock FCMPL() {
+    public ASMOpcodes FCMPL() {
         return visitInsn(FCMPL);
     }
 
     @Override
-    public ASMBlock FCMPG() {
+    public ASMOpcodes FCMPG() {
         return visitInsn(FCMPG);
     }
 
     @Override
-    public ASMBlock DCMPL() {
+    public ASMOpcodes DCMPL() {
         return visitInsn(DCMPL);
     }
 
     @Override
-    public ASMBlock DCMPG() {
+    public ASMOpcodes DCMPG() {
         return visitInsn(DCMPG);
     }
 
     @Override
-    public ASMBlock IFEQ(Label label) {
+    public ASMOpcodes IFEQ(Label label) {
         return visitJumpInsn(IFEQ, label);
     }
 
     @Override
-    public ASMBlock IFNE(Label label) {
+    public ASMOpcodes IFNE(Label label) {
         return visitJumpInsn(IFNE, label);
     }
 
     @Override
-    public ASMBlock IFLT(Label label) {
+    public ASMOpcodes IFLT(Label label) {
         return visitJumpInsn(IFLT, label);
     }
 
     @Override
-    public ASMBlock IFGE(Label label) {
+    public ASMOpcodes IFGE(Label label) {
         return visitJumpInsn(IFGE, label);
     }
 
     @Override
-    public ASMBlock IFGT(Label label) {
+    public ASMOpcodes IFGT(Label label) {
         return visitJumpInsn(IFGT, label);
     }
 
     @Override
-    public ASMBlock IFLE(Label label) {
+    public ASMOpcodes IFLE(Label label) {
         return visitJumpInsn(IFLE, label);
     }
 
     @Override
-    public ASMBlock ICMPEQ(Label label) {
+    public ASMOpcodes ICMPEQ(Label label) {
         return visitJumpInsn(IF_ICMPEQ, label);
     }
 
     @Override
-    public ASMBlock ICMPNE(Label label) {
+    public ASMOpcodes ICMPNE(Label label) {
         return visitJumpInsn(IF_ICMPNE, label);
     }
 
     @Override
-    public ASMBlock ICMPLT(Label label) {
+    public ASMOpcodes ICMPLT(Label label) {
         return visitJumpInsn(IF_ICMPLT, label);
     }
 
     @Override
-    public ASMBlock ICMPGE(Label label) {
+    public ASMOpcodes ICMPGE(Label label) {
         return visitJumpInsn(IF_ICMPGE, label);
     }
 
     @Override
-    public ASMBlock ICMPGT(Label label) {
+    public ASMOpcodes ICMPGT(Label label) {
         return visitJumpInsn(IF_ICMPGT, label);
     }
 
     @Override
-    public ASMBlock ICMPLE(Label label) {
+    public ASMOpcodes ICMPLE(Label label) {
         return visitJumpInsn(IF_ICMPLE, label);
     }
 
     @Override
-    public ASMBlock ACMPEQ(Label label) {
+    public ASMOpcodes ACMPEQ(Label label) {
         return visitJumpInsn(IF_ACMPEQ, label);
     }
 
     @Override
-    public ASMBlock ACMPNE(Label label) {
+    public ASMOpcodes ACMPNE(Label label) {
         return visitJumpInsn(IF_ACMPNE, label);
     }
 
     @Override
-    public ASMBlock GOTO(Label label) {
+    public ASMOpcodes GOTO(Label label) {
         return visitJumpInsn(GOTO, label);
     }
 
     @Override
-    public ASMBlock GOTO_W() {
+    public ASMOpcodes GOTO_W() {
         throw new RuntimeException("ASM NOT SUPPORT GOTO_W");
     }
 
     @Override
-    public ASMBlock TABLESWITCH(int min, int max, Label dflt, Label... labels) {
+    public ASMOpcodes TABLESWITCH(int min, int max, Label dflt, Label... labels) {
         visitor.visitTableSwitchInsn(min, max, dflt, labels);
         return this;
     }
 
     @Override
-    public ASMBlock LOOKUPSWITCH(int[] keys, Label dflt, Label... labels) {
+    public ASMOpcodes LOOKUPSWITCH(int[] keys, Label dflt, Label... labels) {
         visitor.visitLookupSwitchInsn(dflt, keys, labels);
         return this;
     }
 
     @Override
-    public ASMBlock IRETURN() {
+    public ASMOpcodes IRETURN() {
         return visitInsn(IRETURN);
     }
 
     @Override
-    public ASMBlock LRETURN() {
+    public ASMOpcodes LRETURN() {
         return visitInsn(LRETURN);
     }
 
     @Override
-    public ASMBlock FRETURN() {
+    public ASMOpcodes FRETURN() {
         return visitInsn(FRETURN);
     }
 
     @Override
-    public ASMBlock DRETURN() {
+    public ASMOpcodes DRETURN() {
         return visitInsn(DRETURN);
     }
 
     @Override
-    public ASMBlock ARETURN() {
+    public ASMOpcodes ARETURN() {
         return visitInsn(ARETURN);
     }
 
     @Override
-    public ASMBlock RETURN() {
+    public ASMOpcodes RETURN() {
         return visitInsn(RETURN);
     }
 
     @Override
-    public ASMBlock RET(int index) {
+    public ASMOpcodes RET(int index) {
         return visitVarInsn(RET, index);
     }
 
     @Override
-    public ASMBlock JSR() {
+    public ASMOpcodes JSR() {
         return visitInsn(JSR);
     }
 
 
     @Override
-    public ASMBlock GETSTATIC(String owner, String name, String desc) {
+    public ASMOpcodes GETSTATIC(String owner, String name, String desc) {
         visitor.visitFieldInsn(GETSTATIC, owner, name, desc);
         return this;
     }
 
     @Override
-    public ASMBlock PUTSTATIC(String owner, String name, String desc) {
+    public ASMOpcodes PUTSTATIC(String owner, String name, String desc) {
         visitor.visitFieldInsn(PUTSTATIC, owner, name, desc);
         return this;
     }
 
     @Override
-    public ASMBlock GETFIELD(String owner, String name, String desc) {
+    public ASMOpcodes GETFIELD(String owner, String name, String desc) {
         visitor.visitFieldInsn(GETFIELD, owner, name, desc);
         return this;
     }
 
     @Override
-    public ASMBlock PUTFIELD(String owner, String name, String desc) {
+    public ASMOpcodes PUTFIELD(String owner, String name, String desc) {
         visitor.visitFieldInsn(PUTFIELD, owner, name, desc);
         return this;
     }
 
     @Override
-    public ASMBlock GETSTATIC(Class<?> owner, String name, String desc) {
+    public ASMOpcodes GETSTATIC(Class<?> owner, String name, String desc) {
         return GETSTATIC(internalName(owner), name, desc);
     }
 
     @Override
-    public ASMBlock PUTSTATIC(Class<?> owner, String name, String desc) {
+    public ASMOpcodes PUTSTATIC(Class<?> owner, String name, String desc) {
         return PUTSTATIC(internalName(owner), name, desc);
     }
 
     @Override
-    public ASMBlock GETFIELD(Class<?> owner, String name, String desc) {
+    public ASMOpcodes GETFIELD(Class<?> owner, String name, String desc) {
         return GETFIELD(internalName(owner), name, desc);
     }
 
     @Override
-    public ASMBlock PUTFIELD(Class<?> owner, String name, String desc) {
+    public ASMOpcodes PUTFIELD(Class<?> owner, String name, String desc) {
         return PUTFIELD(internalName(owner), name, desc);
     }
 
     @Override
-    public ASMBlock GETSTATIC(String owner, String name, Class<?> desc) {
+    public ASMOpcodes GETSTATIC(String owner, String name, Class<?> desc) {
         return GETSTATIC(owner, name, fieldDescriptor(desc));
     }
 
     @Override
-    public ASMBlock PUTSTATIC(String owner, String name, Class<?> desc) {
+    public ASMOpcodes PUTSTATIC(String owner, String name, Class<?> desc) {
         return PUTSTATIC(owner, name, fieldDescriptor(desc));
     }
 
     @Override
-    public ASMBlock GETFIELD(String owner, String name, Class<?> desc) {
+    public ASMOpcodes GETFIELD(String owner, String name, Class<?> desc) {
         return GETFIELD(owner, name, fieldDescriptor(desc));
     }
 
     @Override
-    public ASMBlock PUTFIELD(String owner, String name, Class<?> desc) {
+    public ASMOpcodes PUTFIELD(String owner, String name, Class<?> desc) {
         return PUTFIELD(owner, name, fieldDescriptor(desc));
     }
 
     @Override
-    public ASMBlock GETSTATIC(Class<?> owner, String name, Class<?> desc) {
+    public ASMOpcodes GETSTATIC(Class<?> owner, String name, Class<?> desc) {
         return GETSTATIC(internalName(owner), name, fieldDescriptor(desc));
     }
 
     @Override
-    public ASMBlock PUTSTATIC(Class<?> owner, String name, Class<?> desc) {
+    public ASMOpcodes PUTSTATIC(Class<?> owner, String name, Class<?> desc) {
         return PUTSTATIC(internalName(owner), name, fieldDescriptor(desc));
     }
 
     @Override
-    public ASMBlock GETFIELD(Class<?> owner, String name, Class<?> desc) {
+    public ASMOpcodes GETFIELD(Class<?> owner, String name, Class<?> desc) {
         return GETFIELD(internalName(owner), name, fieldDescriptor(desc));
     }
 
     @Override
-    public ASMBlock PUTFIELD(Class<?> owner, String name, Class<?> desc) {
+    public ASMOpcodes PUTFIELD(Class<?> owner, String name, Class<?> desc) {
         return PUTFIELD(internalName(owner), name, fieldDescriptor(desc));
     }
 
     @Override
-    public ASMBlock INVOKEVIRTUAL(String owner, String name, String desc) {
+    public ASMOpcodes INVOKEVIRTUAL(String owner, String name, String desc) {
         visitor.visitMethodInsn(INVOKEVIRTUAL, owner, name, desc, false);
         return this;
     }
 
     @Override
-    public ASMBlock INVOKESPECIAL(String owner, String name, String desc) {
+    public ASMOpcodes INVOKESPECIAL(String owner, String name, String desc) {
         visitor.visitMethodInsn(INVOKESPECIAL, owner, name, desc, false);
         return this;
     }
 
     @Override
-    public ASMBlock INVOKESTATIC(String owner, String name, String desc) {
+    public ASMOpcodes INVOKESTATIC(String owner, String name, String desc) {
         visitor.visitMethodInsn(INVOKESTATIC, owner, name, desc, false);
         return this;
     }
 
     @Override
-    public ASMBlock INVOKEINTERFACE(String owner, String name, String desc) {
+    public ASMOpcodes INVOKEINTERFACE(String owner, String name, String desc) {
         visitor.visitMethodInsn(INVOKEINTERFACE, owner, name, desc, true);
         return this;
     }
 
     @Override
-    public ASMBlock INVOKEVIRTUAL(String owner, String name, MethodType type) {
+    public ASMOpcodes INVOKEVIRTUAL(String owner, String name, MethodType type) {
         return INVOKEVIRTUAL(owner, name, type.toMethodDescriptorString());
     }
 
     @Override
-    public ASMBlock INVOKESTATIC(String owner, String name, MethodType type) {
+    public ASMOpcodes INVOKESTATIC(String owner, String name, MethodType type) {
         return INVOKESTATIC(owner, name, type.toMethodDescriptorString());
     }
 
     @Override
-    public ASMBlock INVOKEINTERFACE(String owner, String name, MethodType type) {
+    public ASMOpcodes INVOKEINTERFACE(String owner, String name, MethodType type) {
         return INVOKEINTERFACE(owner, name, type.toMethodDescriptorString());
     }
 
     @Override
-    public ASMBlock INVOKEVIRTUAL(Class<?> owner, String name, String desc) {
+    public ASMOpcodes INVOKEVIRTUAL(Class<?> owner, String name, String desc) {
         return INVOKEVIRTUAL(internalName(owner), name, desc);
     }
 
     @Override
-    public ASMBlock INVOKESPECIAL(Class<?> owner, String name, String desc) {
+    public ASMOpcodes INVOKESPECIAL(Class<?> owner, String name, String desc) {
         return INVOKESPECIAL(internalName(owner), name, desc);
     }
 
     @Override
-    public ASMBlock INVOKESTATIC(Class<?> owner, String name, String desc) {
+    public ASMOpcodes INVOKESTATIC(Class<?> owner, String name, String desc) {
         return INVOKESTATIC(internalName(owner), name, desc);
     }
 
     @Override
-    public ASMBlock INVOKEVIRTUAL(Class<?> owner, String name, MethodType type) {
+    public ASMOpcodes INVOKEVIRTUAL(Class<?> owner, String name, MethodType type) {
         return INVOKEVIRTUAL(internalName(owner), name, type.toMethodDescriptorString());
     }
 
     @Override
-    public ASMBlock INVOKESPECIAL(Class<?> owner, String name, MethodType type) {
+    public ASMOpcodes INVOKESPECIAL(Class<?> owner, String name, MethodType type) {
         return INVOKESPECIAL(internalName(owner), name, type.toMethodDescriptorString());
     }
 
     @Override
-    public ASMBlock INVOKESTATIC(Class<?> owner, String name, MethodType type) {
+    public ASMOpcodes INVOKESTATIC(Class<?> owner, String name, MethodType type) {
         return INVOKESTATIC(internalName(owner), name, type.toMethodDescriptorString());
     }
 
     @Override
-    public ASMBlock INVOKEINTERFACE(Class<?> owner, String name, String desc) {
+    public ASMOpcodes INVOKEINTERFACE(Class<?> owner, String name, String desc) {
         return INVOKEINTERFACE(internalName(owner), name, desc);
     }
 
     @Override
-    public ASMBlock INVOKEINTERFACE(Class<?> owner, String name, MethodType type) {
+    public ASMOpcodes INVOKEINTERFACE(Class<?> owner, String name, MethodType type) {
         return INVOKEINTERFACE(internalName(owner), name, type.toMethodDescriptorString());
     }
 
     @Override
-    public ASMBlock INVOKEDYNAMIC(String name, String desc, Handle bootstrap, Object... args) {
+    public ASMOpcodes INVOKEDYNAMIC(String name, String desc, Handle bootstrap, Object... args) {
         visitor.visitInvokeDynamicInsn(name, desc, bootstrap, args);
         return this;
     }
 
     @Override
-    public ASMBlock NEW(String type) {
+    public ASMOpcodes NEW(String type) {
         visitor.visitTypeInsn(NEW, type);
         return this;
     }
 
     @Override
-    public ASMBlock NEW(Class<?> type) {
+    public ASMOpcodes NEW(Class<?> type) {
         visitor.visitTypeInsn(NEW, Type.getType(type).getInternalName());
         return this;
     }
 
     @Override
-    public ASMBlock NEW(Type type) {
+    public ASMOpcodes NEW(Type type) {
         visitor.visitTypeInsn(NEW, type.getInternalName());
         return this;
     }
 
     @Override
-    public ASMBlock NEWARRAY(int type) {
+    public ASMOpcodes NEWARRAY(int type) {
         visitor.visitIntInsn(NEWARRAY, type);
         return this;
     }
 
     @Override
-    public ASMBlock NEWARRAY(String type) {
+    public ASMOpcodes NEWARRAY(String type) {
         visitor.visitTypeInsn(ANEWARRAY, type);
         return this;
     }
 
     @Override
-    public ASMBlock ANEWARRAY(Class<?> type) {
+    public ASMOpcodes ANEWARRAY(Class<?> type) {
         visitor.visitTypeInsn(ANEWARRAY, Type.getInternalName(type));
         return this;
     }
 
     @Override
-    public ASMBlock ARRAYLENGTH() {
+    public ASMOpcodes ARRAYLENGTH() {
         return visitInsn(ARRAYLENGTH);
     }
 
     @Override
-    public ASMBlock ATHROW() {
+    public ASMOpcodes ATHROW() {
         return visitInsn(ATHROW);
     }
 
     @Override
-    public ASMBlock CHECKCAST(String type) {
+    public ASMOpcodes CHECKCAST(String type) {
         visitor.visitTypeInsn(CHECKCAST, type);
         return this;
     }
 
     @Override
-    public ASMBlock INSTANCEOF(String type) {
+    public ASMOpcodes INSTANCEOF(String type) {
         visitor.visitTypeInsn(INSTANCEOF, type);
         return this;
     }
 
     @Override
-    public ASMBlock MONITORENTER() {
+    public ASMOpcodes MONITORENTER() {
         return visitInsn(MONITORENTER);
     }
 
     @Override
-    public ASMBlock MONITOREXIT() {
+    public ASMOpcodes MONITOREXIT() {
         return visitInsn(MONITOREXIT);
     }
 
     @Override
-    public ASMBlock MULTINEWARRAY(String desc, int dimensions) {
+    public ASMOpcodes MULTINEWARRAY(String desc, int dimensions) {
         visitor.visitMultiANewArrayInsn(desc, dimensions);
         return this;
     }
 
     @Override
-    public ASMBlock IFNULL(Label label) {
+    public ASMOpcodes IFNULL(Label label) {
         return visitJumpInsn(IFNULL, label);
     }
 
     @Override
-    public ASMBlock IFNONNULL(Label label) {
+    public ASMOpcodes IFNONNULL(Label label) {
         return visitJumpInsn(IFNONNULL, label);
     }
 
     @Override
-    public ASMBlock LABEL(Label label) {
+    public ASMOpcodes LABEL(Label label) {
         visitor.visitLabel(label);
         return this;
     }
 
     @Override
-    public ASMBlock TRY(Label start, Label end, Label handler, String type) {
+    public ASMOpcodes TRY(Label start, Label end, Label handler, String type) {
         visitor.visitTryCatchBlock(start, end, handler, type);
         return this;
     }
-
-    @Override
-    public ASMBlock LINE(int line, Label start) {
-        visitor.visitLineNumber(line, start);
-        return this;
-    }
-
-    @Override
-    public ASMBlock PARAMETER(String name, int access) {
-        visitor.visitParameter(name, access);
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(long[] array, int off, int len) {
-        NEWARRAY(T_LONG);
-        while (off < len) {
-            long v = array[off];
-            DUP().INT(off++).LONG(v).LASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(double[] array, int off, int len) {
-        INT(len - off);
-        NEWARRAY(T_DOUBLE);
-        while (off < len) {
-            double v = array[off];
-            DUP().INT(off++).DOUBLE(v).DASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(int[] array, int off, int len) {
-        INT(len - off);
-        NEWARRAY(T_INT);
-        while (off < len) {
-            int v = array[off];
-            DUP().INT(off++).INT(v).IASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(float[] array, int off, int len) {
-        INT(len - off);
-        NEWARRAY(T_FLOAT);
-        while (off < len) {
-            float v = array[off];
-            DUP().INT(off++).FLOAT(v).FASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(char[] array, int off, int len) {
-        INT(len - off);
-        NEWARRAY(T_CHAR);
-        while (off < len) {
-            char v = array[off];
-            DUP().INT(off++).INT(v).CASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(short[] array, int off, int len) {
-        INT(len - off);
-        NEWARRAY(T_SHORT);
-        while (off < len) {
-            short v = array[off];
-            DUP().INT(off++).INT(v).SASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(byte[] array, int off, int len) {
-        INT(len - off);
-        NEWARRAY(T_BYTE);
-        while (off < len) {
-            byte v = array[off];
-            DUP().INT(off++).INT(v).BASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(boolean[] array, int off, int len) {
-        INT(len - off);
-        NEWARRAY(T_BOOLEAN);
-        while (off < len) {
-            boolean v = array[off];
-            DUP().INT(off++).INT(v ? 1 : 0).BASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public <T> ASMBlock ARRAY(T[] array, int off, int len, BiIntConsumer<T> producer) {
-        INT(len - off);
-        visitor.visitTypeInsn(ANEWARRAY, Type.getInternalName(array.getClass().getComponentType()));
-        while (off < len) {
-            T v = array[off];
-            int idx = off++;
-            DUP().INT(idx);
-            producer.accept(idx, v);
-            AASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(long[] array) {
-        INT(array.length);
-        NEWARRAY(T_LONG);
-        for (int i = 0, j = array.length; i < j; i++) {
-            long v = array[i];
-            DUP().INT(i).LONG(v).LASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(double[] array) {
-        INT(array.length);
-        NEWARRAY(T_DOUBLE);
-        for (int i = 0, j = array.length; i < j; i++) {
-            double v = array[i];
-            DUP().INT(i).DOUBLE(v).DASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(int[] array) {
-        INT(array.length);
-        NEWARRAY(T_INT);
-        for (int i = 0, j = array.length; i < j; i++) {
-            int v = array[i];
-            DUP().INT(i).INT(v).IASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(float[] array) {
-        INT(array.length);
-        NEWARRAY(T_FLOAT);
-        for (int i = 0, j = array.length; i < j; i++) {
-            float v = array[i];
-            DUP().INT(i).FLOAT(v).FASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(char[] array) {
-        INT(array.length);
-        NEWARRAY(T_CHAR);
-        for (int i = 0, j = array.length; i < j; i++) {
-            char v = array[i];
-            DUP().INT(i).INT(v).CASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(short[] array) {
-        INT(array.length);
-        NEWARRAY(T_SHORT);
-        for (int i = 0, j = array.length; i < j; i++) {
-            short v = array[i];
-            DUP().INT(i).INT(v).SASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(byte[] array) {
-        INT(array.length);
-        NEWARRAY(T_BYTE);
-        for (int i = 0, j = array.length; i < j; i++) {
-            byte v = array[i];
-            DUP().INT(i).INT(v).BASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public ASMBlock ARRAY(boolean[] array) {
-        INT(array.length);
-        NEWARRAY(T_BOOLEAN);
-        for (int i = 0, j = array.length; i < j; i++) {
-            boolean v = array[i];
-            DUP().INT(i).INT(v ? 1 : 0).BASTORE();
-        }
-        return this;
-    }
-
-    @Override
-    public <T> ASMBlock ARRAY(T[] array, BiIntConsumer<T> producer) {
-        INT(array.length);
-        visitor.visitTypeInsn(ANEWARRAY, Type.getInternalName(array.getClass().getComponentType()));
-        for (int i = 0, j = array.length; i < j; i++) {
-            T v = array[i];
-            DUP().INT(i);
-            producer.accept(i, v);
-            AASTORE();
-        }
-        return this;
-    }
-
-    public ASMBlock WIDE() {
+    public ASMOpcodes WIDE() {
         throw new RuntimeException("ASM NOT SUPPORT LDC_W");
     }
 
-    private ASMBlock visitInsn(int opcode) {
+    private ASMOpcodes visitInsn(int opcode) {
         visitor.visitInsn(opcode);
         return this;
     }
 
-    private ASMBlock visitJumpInsn(int opcode, Label label) {
+    private ASMOpcodes visitJumpInsn(int opcode, Label label) {
         visitor.visitJumpInsn(opcode, label);
         return this;
     }
 
-    private ASMBlock visitVarInsn(int opcode, int var) {
+    private ASMOpcodes visitVarInsn(int opcode, int var) {
         visitor.visitVarInsn(opcode, var);
         return this;
     }
 
-    private ASMBlock visitLdcInsn(Object value) {
+    private ASMOpcodes visitLdcInsn(Object value) {
         visitor.visitLdcInsn(value);
         return this;
     }

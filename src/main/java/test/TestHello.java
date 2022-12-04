@@ -1,7 +1,9 @@
+package test;
+
 import java.io.PrintStream;
 import java.lang.invoke.MethodType;
 
-import static com.sec.asm.core.ASMBlock.__asm__;
+import static com.sec.asm.core.ASM.__asm__;
 
 public class TestHello {
     public static void main(String[] args) {

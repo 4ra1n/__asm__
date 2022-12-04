@@ -1,3 +1,5 @@
+package test;
+
 import com.sec.asm.utils.DrawingUtils;
 
 public class TestGraph {

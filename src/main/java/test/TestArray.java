@@ -1,4 +1,6 @@
-import static com.sec.asm.core.ASMBlock.__asm__;
+package test;
+
+import static com.sec.asm.core.ASM.__asm__;
 import static org.objectweb.asm.Opcodes.T_INT;
 
 public class TestArray {
