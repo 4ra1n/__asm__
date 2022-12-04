@@ -1,6 +1,6 @@
 public class TestASM {
     public static void main(String[] args) {
-        int a= -1;
-        System.out.println(a);
+        int[] arr = new int[3];
+        arr[0] = 1;
     }
 }

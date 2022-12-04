@@ -3,7 +3,7 @@ import java.lang.invoke.MethodType;
 
 import static com.sec.asm.core.ASMBlock.__asm__;
 
-public class Test {
+public class TestHello {
     public static void main(String[] args) {
         System.out.println("test asm");
         test(args);

@@ -1,6 +1,7 @@
 package com.sec.asm.core;
 
 import com.sec.asm.define.ClassDefiner;
+import com.sec.asm.utils.LookupUtil;
 import org.objectweb.asm.*;
 
 import java.util.Map;

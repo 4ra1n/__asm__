@@ -1,4 +1,4 @@
-package com.sec.asm.core;
+package com.sec.asm.utils;
 
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.reflect.Field;

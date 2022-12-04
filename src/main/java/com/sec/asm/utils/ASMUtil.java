@@ -1,6 +1,5 @@
 package com.sec.asm.utils;
 
-import com.sec.asm.core.LookupUtil;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
