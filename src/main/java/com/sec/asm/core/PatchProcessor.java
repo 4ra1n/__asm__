@@ -1,6 +1,6 @@
-package com.chaitin.asm.core;
+package com.sec.asm.core;
 
-import com.chaitin.asm.utils.AsmUtil;
+import com.sec.asm.utils.AsmUtil;
 import com.sun.nio.zipfs.JarFileSystemProvider;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;

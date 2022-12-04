@@ -1,4 +1,4 @@
-package com.chaitin.asm.utils;
+package com.sec.asm.utils;
 
 public final class VersionUtil {
 

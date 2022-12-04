@@ -1,6 +1,6 @@
-package com.chaitin.asm.core;
+package com.sec.asm.core;
 
-import com.chaitin.asm.api.AsmBlock;
+import com.sec.asm.api.AsmBlock;
 
 import java.lang.invoke.MethodType;
 

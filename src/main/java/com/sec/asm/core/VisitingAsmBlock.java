@@ -1,7 +1,7 @@
-package com.chaitin.asm.core;
+package com.sec.asm.core;
 
-import com.chaitin.asm.api.AsmBlock;
-import com.chaitin.asm.api.BiIntConsumer;
+import com.sec.asm.api.AsmBlock;
+import com.sec.asm.api.BiIntConsumer;
 import org.objectweb.asm.*;
 
 import java.lang.invoke.MethodType;

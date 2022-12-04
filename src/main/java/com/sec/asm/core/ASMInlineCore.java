@@ -1,7 +1,7 @@
-package com.chaitin.asm.core;
+package com.sec.asm.core;
 
-import com.chaitin.asm.api.AsmBlock;
-import com.chaitin.asm.define.ClassDefiner;
+import com.sec.asm.api.AsmBlock;
+import com.sec.asm.define.ClassDefiner;
 import org.objectweb.asm.*;
 
 import java.util.Map;
@@ -11,6 +11,7 @@ public final class ASMInlineCore extends ClassVisitor {
 
     private static final Type ASM_BLOCK = Type
             .getMethodType(Type.VOID_TYPE, Type.getType(AsmBlock.class));
+    @SuppressWarnings("all")
     private static final Handle LAMBDA_FACTORY_HANDLE = new Handle(
             Opcodes.H_INVOKESTATIC,
             "java/lang/invoke/LambdaMetafactory",
@@ -53,7 +54,7 @@ public final class ASMInlineCore extends ClassVisitor {
             @Override
             public void visitMethodInsn(int opcode, String owner, String name, String descriptor,
                                         boolean isInterface) {
-                if (opcode == Opcodes.INVOKESTATIC && owner.equals("dev/xdark/asminline/AsmBlock")
+                if (opcode == Opcodes.INVOKESTATIC && owner.equals("com/sec/asm/api/AsmBlock")
                         && isInlineName(name)
                         && isInlineDescriptor(descriptor)) {
                     return;

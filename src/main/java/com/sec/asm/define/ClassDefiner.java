@@ -1,6 +1,6 @@
-package com.chaitin.asm.define;
+package com.sec.asm.define;
 
-import com.chaitin.asm.utils.VersionUtil;
+import com.sec.asm.utils.VersionUtil;
 
 public interface ClassDefiner {
 

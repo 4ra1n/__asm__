@@ -1,4 +1,4 @@
-package com.chaitin.asm.core;
+package com.sec.asm.core;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;

@@ -1,10 +1,10 @@
-package com.chaitin.asm.define;
+package com.sec.asm.define;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.security.ProtectionDomain;
 
-public final class Java8ClassDefiner implements ClassDefiner {
+public final class Java9ClassDefiner implements ClassDefiner {
     private static final Object UNSAFE;
 
     @Override
@@ -22,7 +22,7 @@ public final class Java8ClassDefiner implements ClassDefiner {
 
     static {
         try {
-            Class<?> unsafe = Class.forName("sun.misc.Unsafe");
+            Class<?> unsafe = Class.forName("jdk.internal.misc.Unsafe");
             Field field = unsafe.getDeclaredField("theUnsafe");
             field.setAccessible(true);
             UNSAFE = field.get(null);

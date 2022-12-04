@@ -1,4 +1,4 @@
-package com.chaitin.asm.core;
+package com.sec.asm.core;
 
 import java.util.Objects;
 

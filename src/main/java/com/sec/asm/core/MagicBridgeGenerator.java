@@ -1,7 +1,7 @@
-package com.chaitin.asm.core;
+package com.sec.asm.core;
 
-import com.chaitin.asm.define.ClassDefiner;
-import com.chaitin.asm.utils.VersionUtil;
+import com.sec.asm.define.ClassDefiner;
+import com.sec.asm.utils.VersionUtil;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
