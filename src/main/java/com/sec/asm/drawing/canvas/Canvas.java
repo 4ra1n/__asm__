@@ -10,51 +10,26 @@ public class Canvas {
     private int col;
     private final List<TextPixel> pixelList = new ArrayList<>();
 
-    // region move
     public Canvas moveTo(int row, int col) {
         this.row = row;
         this.col = col;
         return this;
     }
 
-    public Canvas up(int count) {
+    public void up(int count) {
         this.row -= count;
-        return this;
     }
 
-    public Canvas down(int count) {
+    public void down(int count) {
         this.row += count;
-        return this;
     }
 
-    public Canvas left(int count) {
+    public void left(int count) {
         this.col -= count;
-        return this;
     }
 
-    public Canvas right(int count) {
+    public void right(int count) {
         this.col += count;
-        return this;
-    }
-
-    public void rectifyPosition() {
-        int minRow = 0;
-        int minCol = 0;
-        for (TextPixel pixel : pixelList) {
-            int row = pixel.row;
-            if (row < minRow) {
-                minRow = row;
-            }
-            int col = pixel.col;
-            if (col < minCol) {
-                minCol = col;
-            }
-        }
-
-        for (TextPixel pixel : pixelList) {
-            pixel.row -= minRow;
-            pixel.col -= minCol;
-        }
     }
 
     public void updatePosition(int startRow, int startCol) {
@@ -63,9 +38,7 @@ public class Canvas {
             pixel.col += startCol;
         }
     }
-    // endregion
 
-    // region Point
     public void drawPixel(Box value) {
         TextPixel pixel = findPixel(row, col);
         if (pixel != null) {
@@ -93,58 +66,22 @@ public class Canvas {
         }
     }
 
-    public Canvas switchDirection(TextDirection from, TextDirection to) {
-        if (from == TextDirection.UP && to == TextDirection.LEFT) {
-            drawPixel(Box.UP_AND_LEFT);
-            left(1);
-        } else if (from == TextDirection.UP && to == TextDirection.RIGHT) {
-            drawPixel(Box.UP_AND_RIGHT);
-            right(1);
-        } else if (from == TextDirection.RIGHT && to == TextDirection.UP) {
-            drawPixel(Box.UP_AND_RIGHT);
-            up(1);
-        } else if (from == TextDirection.RIGHT && to == TextDirection.DOWN) {
-            drawPixel(Box.DOWN_AND_RIGHT);
-            down(1);
-        } else if (from == TextDirection.DOWN && to == TextDirection.RIGHT) {
-            drawPixel(Box.DOWN_AND_RIGHT);
-            right(1);
-        } else if (from == TextDirection.DOWN && to == TextDirection.LEFT) {
-            drawPixel(Box.DOWN_AND_LEFT);
-            left(1);
-        } else if (from == TextDirection.LEFT && to == TextDirection.DOWN) {
-            drawPixel(Box.DOWN_AND_LEFT);
-            down(1);
-        } else if (from == TextDirection.LEFT && to == TextDirection.UP) {
-            drawPixel(Box.UP_AND_LEFT);
-            up(1);
-        } else {
-            assert false : "impossible here";
-        }
-
-        return this;
-    }
-    // endregion
-
-    // region Line
-    public Canvas drawHorizontalLine(int num) {
+    public void drawHorizontalLine(int num) {
         int step = num > 0 ? 1 : -1;
         int count = Math.abs(num);
         for (int i = 0; i < count; i++) {
             drawPixel(Box.HORIZONTAL);
             col += step;
         }
-        return this;
     }
 
-    public Canvas drawVerticalLine(int num) {
+    public void drawVerticalLine(int num) {
         int step = num > 0 ? 1 : -1;
         int count = Math.abs(num);
         for (int i = 0; i < count; i++) {
             drawPixel(Box.VERTICAL);
             row += step;
         }
-        return this;
     }
 
     public void drawText(String text) {
@@ -155,11 +92,8 @@ public class Canvas {
             col++;
         }
     }
-    // endregion
 
-    // region Plane
     public void drawRectangle(int width, int height) {
-        // left top
         drawPixel(Box.DOWN_AND_RIGHT);
         right(1);
         for (int i = 0; i < width; i++) {
@@ -167,7 +101,6 @@ public class Canvas {
             right(1);
         }
 
-        // right top
         drawPixel(Box.DOWN_AND_LEFT);
         down(1);
         for (int i = 0; i < height; i++) {
@@ -175,7 +108,6 @@ public class Canvas {
             down(1);
         }
 
-        // right bottom
         drawPixel(Box.UP_AND_LEFT);
         left(1);
         for (int i = 0; i < width; i++) {
@@ -183,7 +115,6 @@ public class Canvas {
             left(1);
         }
 
-        // right left
         drawPixel(Box.UP_AND_RIGHT);
         up(1);
         for (int i = 0; i < height; i++) {
@@ -209,10 +140,8 @@ public class Canvas {
             totalHeight += height;
         }
 
-        // outer border
         drawRectangle(totalWidth, totalHeight);
 
-        // inner horizontal border
         moveTo(startRow, startCol);
         for (int i = 0; i < colCount - 1; i++) {
             int width = colWidthArray[i];
@@ -224,7 +153,6 @@ public class Canvas {
             up(totalHeight + 1);
         }
 
-        // inner vertical border
         moveTo(startRow, startCol);
         for (int i = 0; i < rowCount - 1; i++) {
             int height = rowHeightArray[i];
@@ -237,7 +165,6 @@ public class Canvas {
         }
 
     }
-    // endregion
 
     public void printPixels() {
         Collections.sort(pixelList);
@@ -298,27 +225,6 @@ public class Canvas {
         drawable.draw(this, row, col);
     }
 
-    public void overlay(Canvas canvas) {
-        for (TextPixel pixel : canvas.pixelList) {
-            int targetRow = pixel.row;
-            int targetCol = pixel.col;
-            TextPixel targetPixel = findPixel(targetRow, targetCol);
-            if (targetPixel != null) {
-                if (Box.isValid(targetPixel.value) && Box.isValid(pixel.value)) {
-                    targetPixel.value = Box.merge(targetPixel.value, pixel.value).val;
-                } else {
-                    targetPixel.value = pixel.value;
-                }
-            } else {
-                targetPixel = TextPixel.valueOf(targetRow, targetCol, pixel.value);
-                pixelList.add(targetPixel);
-            }
-        }
-
-        Collections.sort(pixelList);
-    }
-
-    // region private methods
     private TextPixel findPixel(int row, int col) {
         for (TextPixel item : pixelList) {
             if (item.row == row && item.col == col) {
@@ -360,5 +266,4 @@ public class Canvas {
         }
         return list;
     }
-    // endregion
 }

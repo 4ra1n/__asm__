@@ -4,21 +4,13 @@ import static com.sec.asm.api.ASMBlock.__asm__;
 
 public class TestExec {
     public static void main(String[] args) {
-        // args:0 r:1
         Runtime r = Runtime.getRuntime();
-        // process:2
-        Process p = null;
         __asm__(asm -> {
             asm.INIT()
                     .ALOAD(1)
                     .LDC("calc.exe")
                     .INVOKEVIRTUAL(Runtime.class, "exec",
-                            MethodType.methodType(Process.class, String.class))
-                    .DUP()
-                    // process = returnValue
-                    .ASTORE(2);
-                    // POP (JVM)
+                            MethodType.methodType(Process.class, String.class));
         });
-        System.out.println(p.getInputStream());
     }
 }

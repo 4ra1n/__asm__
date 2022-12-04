@@ -1,4 +1,4 @@
-package com.sec.asm.drawing.theme.table;
+package com.sec.asm.drawing.theme;
 
 import com.sec.asm.drawing.canvas.Canvas;
 import com.sec.asm.drawing.canvas.Drawable;
