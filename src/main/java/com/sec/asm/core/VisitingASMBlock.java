@@ -116,6 +116,9 @@ public class VisitingASMBlock implements ASMBlock {
         return visitLdcInsn(constantDynamic);
     }
 
+    // TODO: LDC_W
+    // TODO: LDC_2W
+
     @Override
     public ASMBlock ILOAD(int idx) {
         return visitVarInsn(ILOAD, idx);
@@ -210,6 +213,8 @@ public class VisitingASMBlock implements ASMBlock {
     public ASMBlock IASTORE() {
         return visitInsn(IASTORE);
     }
+
+    // TODO: ICONST -1 0 1 2 3 4 5
 
     @Override
     public ASMBlock LASTORE() {
@@ -652,6 +657,8 @@ public class VisitingASMBlock implements ASMBlock {
         return visitJumpInsn(GOTO, label);
     }
 
+    // TODO: GOTO_W
+
     @Override
     public ASMBlock TABLESWITCH(int min, int max, Label dflt, Label... labels) {
         visitor.visitTableSwitchInsn(min, max, dflt, labels);
@@ -693,6 +700,8 @@ public class VisitingASMBlock implements ASMBlock {
     public ASMBlock RETURN() {
         return visitInsn(RETURN);
     }
+
+    // TODO: ret
 
     @Override
     public ASMBlock GETSTATIC(String owner, String name, String desc) {
@@ -893,6 +902,8 @@ public class VisitingASMBlock implements ASMBlock {
         return this;
     }
 
+    // TODO: ANEWARRAY
+
     @Override
     public ASMBlock ARRAYLENGTH() {
         return visitInsn(ARRAYLENGTH);
@@ -940,6 +951,9 @@ public class VisitingASMBlock implements ASMBlock {
     public ASMBlock IFNONNULL(Label label) {
         return visitJumpInsn(IFNONNULL, label);
     }
+
+    // TODO: IF_ACMPEQ
+    // TODO: IF_ACMPNE
 
     @Override
     public ASMBlock LABEL(Label label) {
@@ -1166,6 +1180,9 @@ public class VisitingASMBlock implements ASMBlock {
         }
         return this;
     }
+
+    // TODO: SIPUSH
+    // TODO: WIDE
 
     private ASMBlock visitInsn(int opcode) {
         visitor.visitInsn(opcode);

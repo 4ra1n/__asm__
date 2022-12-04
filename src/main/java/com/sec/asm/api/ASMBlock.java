@@ -418,10 +418,8 @@ public interface ASMBlock {
 
     ASMBlock MULTINEWARRAY(String desc, int dimensions);
 
-    // v == null
     ASMBlock IFNULL(Label label);
 
-    // v != null
     ASMBlock IFNONNULL(Label label);
 
     ASMBlock LABEL(Label label);
