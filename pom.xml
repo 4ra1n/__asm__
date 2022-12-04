@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.chaitin</groupId>
-    <artifactId>ASM</artifactId>
+    <groupId>org.sec.asm</groupId>
+    <artifactId>__asm__</artifactId>
     <version>0.0.1</version>
 
     <properties>
@@ -36,11 +36,6 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.chaitin.jar.analyzer.Application</mainClass>
-                        </manifest>
-                    </archive>
                 </configuration>
                 <executions>
                     <execution>
