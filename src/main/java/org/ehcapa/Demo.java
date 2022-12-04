@@ -6,7 +6,7 @@ import java.lang.invoke.MethodType;
 import static com.sec.asm.api.ASMBlock.__asm__;
 
 public class Demo {
-    public static void s(){
+    public static void s() {
         __asm__(asm -> {
             asm.INIT()
                     .GETSTATIC(System.class, "out", PrintStream.class)
