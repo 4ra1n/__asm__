@@ -1,10 +1,7 @@
 package com.sec.asm.api;
 
 import com.sec.asm.run.Runner;
-import org.objectweb.asm.ConstantDynamic;
-import org.objectweb.asm.Handle;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.Type;
+import org.objectweb.asm.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -85,6 +82,24 @@ public interface ASMBlock {
     ASMBlock LDC(Handle handle);
 
     ASMBlock LDC(ConstantDynamic constantDynamic);
+
+    ASMBlock LDC_W();
+
+    ASMBlock LDC_2W();
+
+    ASMBlock ICONST_M1();
+
+    ASMBlock ICONST_0();
+
+    ASMBlock ICONST_1();
+
+    ASMBlock ICONST_2();
+
+    ASMBlock ICONST_3();
+
+    ASMBlock ICONST_4();
+
+    ASMBlock ICONST_5();
 
     ASMBlock ILOAD(int idx);
 
@@ -314,6 +329,10 @@ public interface ASMBlock {
 
     ASMBlock GOTO(Label label);
 
+    ASMBlock GOTO_W();
+
+    ASMBlock WIDE();
+
     ASMBlock TABLESWITCH(int min, int max, Label dflt, Label... labels);
 
     ASMBlock LOOKUPSWITCH(int[] keys, Label dflt, Label... labels);
@@ -329,6 +348,10 @@ public interface ASMBlock {
     ASMBlock ARETURN();
 
     ASMBlock RETURN();
+
+    ASMBlock RET(int index);
+
+    ASMBlock JSR();
 
     ASMBlock GETSTATIC(String owner, String name, String desc);
 
@@ -403,6 +426,8 @@ public interface ASMBlock {
     ASMBlock NEWARRAY(int type);
 
     ASMBlock NEWARRAY(String type);
+
+    ASMBlock ANEWARRAY(Class<?> type);
 
     ASMBlock ARRAYLENGTH();
 

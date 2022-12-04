@@ -116,8 +116,50 @@ public class VisitingASMBlock implements ASMBlock {
         return visitLdcInsn(constantDynamic);
     }
 
-    // TODO: LDC_W
-    // TODO: LDC_2W
+    @Override
+    public ASMBlock LDC_W() {
+        throw new RuntimeException("ASM NOT SUPPORT LDC_W");
+    }
+
+    @Override
+    public ASMBlock LDC_2W() {
+        throw new RuntimeException("ASM NOT SUPPORT LDC_2W");
+    }
+
+    @Override
+    public ASMBlock ICONST_M1() {
+        return INT(-1);
+    }
+
+    @Override
+    public ASMBlock ICONST_0() {
+        return INT(0);
+    }
+
+    @Override
+    public ASMBlock ICONST_1() {
+        return INT(1);
+    }
+
+    @Override
+    public ASMBlock ICONST_2() {
+        return INT(2);
+    }
+
+    @Override
+    public ASMBlock ICONST_3() {
+        return INT(3);
+    }
+
+    @Override
+    public ASMBlock ICONST_4() {
+        return INT(4);
+    }
+
+    @Override
+    public ASMBlock ICONST_5() {
+        return INT(5);
+    }
 
     @Override
     public ASMBlock ILOAD(int idx) {
@@ -213,8 +255,6 @@ public class VisitingASMBlock implements ASMBlock {
     public ASMBlock IASTORE() {
         return visitInsn(IASTORE);
     }
-
-    // TODO: ICONST -1 0 1 2 3 4 5
 
     @Override
     public ASMBlock LASTORE() {
@@ -657,7 +697,10 @@ public class VisitingASMBlock implements ASMBlock {
         return visitJumpInsn(GOTO, label);
     }
 
-    // TODO: GOTO_W
+    @Override
+    public ASMBlock GOTO_W() {
+        throw new RuntimeException("ASM NOT SUPPORT GOTO_W");
+    }
 
     @Override
     public ASMBlock TABLESWITCH(int min, int max, Label dflt, Label... labels) {
@@ -701,7 +744,16 @@ public class VisitingASMBlock implements ASMBlock {
         return visitInsn(RETURN);
     }
 
-    // TODO: ret
+    @Override
+    public ASMBlock RET(int index) {
+        return visitVarInsn(RET, index);
+    }
+
+    @Override
+    public ASMBlock JSR() {
+        return visitInsn(JSR);
+    }
+
 
     @Override
     public ASMBlock GETSTATIC(String owner, String name, String desc) {
@@ -902,7 +954,11 @@ public class VisitingASMBlock implements ASMBlock {
         return this;
     }
 
-    // TODO: ANEWARRAY
+    @Override
+    public ASMBlock ANEWARRAY(Class<?> type) {
+        visitor.visitTypeInsn(ANEWARRAY, Type.getInternalName(type));
+        return this;
+    }
 
     @Override
     public ASMBlock ARRAYLENGTH() {
@@ -951,9 +1007,6 @@ public class VisitingASMBlock implements ASMBlock {
     public ASMBlock IFNONNULL(Label label) {
         return visitJumpInsn(IFNONNULL, label);
     }
-
-    // TODO: IF_ACMPEQ
-    // TODO: IF_ACMPNE
 
     @Override
     public ASMBlock LABEL(Label label) {
@@ -1181,8 +1234,9 @@ public class VisitingASMBlock implements ASMBlock {
         return this;
     }
 
-    // TODO: SIPUSH
-    // TODO: WIDE
+    public ASMBlock WIDE() {
+        throw new RuntimeException("ASM NOT SUPPORT LDC_W");
+    }
 
     private ASMBlock visitInsn(int opcode) {
         visitor.visitInsn(opcode);
