@@ -13,8 +13,8 @@ final class MagicBridgeGenerator {
     }
 
     static {
-        String actualClass ="sun/reflect/MagicAccessorImpl";
-        CLASS_NAME ="sun/reflect/MagicAccessorBridge" + "$AsmInline$" + System.nanoTime();
+        String actualClass = "sun/reflect/MagicAccessorImpl";
+        CLASS_NAME = "sun/reflect/MagicAccessorBridge" + "$AsmInline$" + System.nanoTime();
         // Generate bridge
         ClassWriter writer = new ClassWriter(0);
         writer.visit(Opcodes.V1_8, Opcodes.ACC_PUBLIC, CLASS_NAME, null, actualClass, null);

@@ -9,7 +9,7 @@ import java.net.URLClassLoader;
 import java.util.function.Consumer;
 
 public interface ASM {
-    static void __asm__internal__(String className) {
+    static void __asm__internal__() {
         if (!ASMConst.hasRewrite) {
             System.out.println("|----------------ASM----------------|");
             System.out.println("|  Please Restart Java Application  |");
@@ -19,7 +19,9 @@ public interface ASM {
             URL[] urls = ((URLClassLoader) cl).getURLs();
             URL targetUrl = null;
             for (URL u : urls) {
-                if (!u.toString().endsWith(".jar")) {
+                if (!u.toString().endsWith(".jar") &&
+                        u.toString().toLowerCase().contains("classes")) {
+                    // this must be class path
                     targetUrl = u;
                 }
             }
@@ -28,7 +30,6 @@ public interface ASM {
             }
             try {
                 Runner.run(new String[]{
-                        className,
                         targetUrl.toURI().getPath().substring(1)
                 });
             } catch (Exception e) {
@@ -49,9 +50,7 @@ public interface ASM {
         }
     }
 
-    static void __asm__(Consumer<ASMOpcodes> blocker) {
-        __asm__internal__(
-                blocker.getClass().getName().split("\\$\\$")[0]
-        );
+    static void __asm__(Consumer<ASMOpcodes> _) {
+        __asm__internal__();
     }
 }

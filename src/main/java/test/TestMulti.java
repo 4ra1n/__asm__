@@ -6,7 +6,7 @@ import static org.objectweb.asm.Opcodes.T_INT;
 public class TestMulti {
     public static void main(String[] args) {
         int[] arr = null;
-        __asm__(asm->{
+        __asm__(asm -> {
             asm.INIT()
                     .ICONST_3()
                     .NEWARRAY(T_INT)
@@ -16,7 +16,7 @@ public class TestMulti {
                     .ICONST_1()
                     .IASTORE();
         });
-        __asm__(asm->{
+        __asm__(asm -> {
             asm.INIT()
                     .ICONST_3()
                     .NEWARRAY(T_INT)
@@ -26,7 +26,7 @@ public class TestMulti {
                     .ICONST_1()
                     .IASTORE();
         });
-        __asm__(asm->{
+        __asm__(asm -> {
             asm.INIT()
                     .ICONST_3()
                     .NEWARRAY(T_INT)
@@ -36,7 +36,7 @@ public class TestMulti {
                     .ICONST_1()
                     .IASTORE();
         });
-        __asm__(asm->{
+        __asm__(asm -> {
             asm.INIT()
                     .ICONST_3()
                     .NEWARRAY(T_INT)
@@ -46,7 +46,7 @@ public class TestMulti {
                     .ICONST_1()
                     .IASTORE();
         });
-        __asm__(asm->{
+        __asm__(asm -> {
             asm.INIT()
                     .ICONST_3()
                     .NEWARRAY(T_INT)

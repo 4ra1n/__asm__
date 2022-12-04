@@ -7,7 +7,7 @@ import java.lang.invoke.MethodType;
 import static org.objectweb.asm.Opcodes.*;
 
 @SuppressWarnings("all")
-public class ASMCoreVisitor implements ASMOpcodes,ASM {
+public class ASMCoreVisitor implements ASMOpcodes, ASM {
 
     private final MethodVisitor visitor;
 
@@ -1052,6 +1052,7 @@ public class ASMCoreVisitor implements ASMOpcodes,ASM {
         visitor.visitTryCatchBlock(start, end, handler, type);
         return this;
     }
+
     public ASMOpcodes WIDE() {
         throw new RuntimeException("ASM NOT SUPPORT LDC_W");
     }

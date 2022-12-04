@@ -10,12 +10,13 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public class Runner {
     public static void run(String[] args) throws Exception {
-        // arg0: full class name
-        // arg1: class path
+        if (args.length != 1) {
+            return;
+        }
         URLClassLoader loader = URLClassLoader.newInstance(new URL[]{
-                Paths.get(args[1]).toUri().toURL()});
+                Paths.get(args[0]).toUri().toURL()});
 
-        Path dir = Paths.get(args[1]);
+        Path dir = Paths.get(args[0]);
         Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
