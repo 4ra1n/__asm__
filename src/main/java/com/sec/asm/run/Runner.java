@@ -12,9 +12,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 
 public class Runner {
+    // 运行的类全名：com.test.Test
+    private static final String className = "TestExec";
+    // classes目录：IDEA默认是target/classes/
+    private static final String classesDir = "target/classes/";
+
     public static void main(String[] args) throws Exception {
-        String className = "Test";
-        String classesDir = "target/classes/";
         System.out.println("[*] start patch");
         URLClassLoader loader = URLClassLoader.newInstance(new URL[]{
                 Paths.get(classesDir).toUri().toURL()});
@@ -39,7 +42,7 @@ public class Runner {
         read(eis);
     }
 
-    private static void read(InputStream is){
+    private static void read(InputStream is) {
         try {
             int bufferSize = 1024;
             char[] buffer = new char[bufferSize];
@@ -48,7 +51,7 @@ public class Runner {
             for (int numRead; (numRead = in.read(buffer, 0, buffer.length)) > 0; ) {
                 out.append(buffer, 0, numRead);
             }
-            if(!out.toString().trim().equals("")){
+            if (!out.toString().trim().equals("")) {
                 System.out.println(out);
             }
         } catch (Exception e) {
