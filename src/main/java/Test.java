@@ -1,10 +1,35 @@
-import org.ehcapa.Demo;
+import java.io.PrintStream;
+import java.lang.invoke.MethodType;
+
+import static com.sec.asm.api.ASMBlock.__asm__;
 
 public class Test {
     public static void main(String[] args) {
         System.out.println("test asm");
-        Demo.s();
+        test(args);
         System.out.println("test ok");
+    }
+
+    public static void test(String[] args) {
+        __asm__(asm -> {
+            asm.INIT()
+                    .GETSTATIC(System.class, "out", PrintStream.class)
+                    .NEW(StringBuilder.class)
+                    .DUP()
+                    .INVOKESPECIAL(StringBuilder.class, "<init>",
+                            MethodType.methodType(Void.TYPE))
+                    .LDC("hello ")
+                    .INVOKEVIRTUAL(StringBuilder.class, "append",
+                            MethodType.methodType(StringBuilder.class, String.class))
+                    .LDC("world!")
+                    .INVOKEVIRTUAL(StringBuilder.class, "append",
+                            MethodType.methodType(StringBuilder.class, String.class))
+                    .INVOKEVIRTUAL(StringBuilder.class, "toString",
+                            MethodType.methodType(String.class))
+                    .INVOKEVIRTUAL(PrintStream.class,
+                            "println",
+                            MethodType.methodType(Void.TYPE, String.class));
+        });
     }
 }
 
