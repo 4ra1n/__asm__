@@ -9,7 +9,7 @@ import java.lang.invoke.MethodType;
 import static org.objectweb.asm.Opcodes.*;
 
 @SuppressWarnings("all")
-public final class VisitingAsmBlock implements AsmBlock {
+public class VisitingAsmBlock implements AsmBlock {
 
     private final MethodVisitor visitor;
 

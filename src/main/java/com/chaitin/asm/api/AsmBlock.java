@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 @SuppressWarnings("all")
 public interface AsmBlock {
 
-  static void inline(Consumer<AsmBlock> blocker) {
+  static void __asm__(Consumer<AsmBlock> blocker) {
     throw new UnsupportedOperationException("Must be replaced with bytecode");
   }
 
