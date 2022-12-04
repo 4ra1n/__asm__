@@ -6,6 +6,9 @@ import org.objectweb.asm.Handle;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.Type;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.lang.invoke.MethodType;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -14,7 +17,7 @@ import java.util.function.Consumer;
 @SuppressWarnings("all")
 public interface ASMBlock {
     static void __asm__internal__(String className) {
-        ClassLoader cl =ClassLoader.getSystemClassLoader();
+        ClassLoader cl = ClassLoader.getSystemClassLoader();
         URL[] urls = ((URLClassLoader) cl).getURLs();
         URL targetUrl = null;
         for (URL u : urls) {
@@ -33,10 +36,20 @@ public interface ASMBlock {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(!ASMConst.hasPrinted) {
+        if (!ASMConst.hasPrinted) {
             System.out.println("|----------------ASM----------------|");
             System.out.println("|  Please Restart Java Application  |");
             System.out.println("|-----------------------------------|");
+            System.setOut(new PrintStream(new OutputStream() {
+                @Override
+                public void write(int b) throws IOException {
+                }
+            }));
+            System.setErr(new PrintStream(new OutputStream() {
+                @Override
+                public void write(int b) throws IOException {
+                }
+            }));
             ASMConst.hasPrinted = true;
         }
     }
@@ -45,69 +58,6 @@ public interface ASMBlock {
         __asm__internal__(
                 blocker.getClass().getName().split("\\$\\$")[0]
         );
-    }
-
-    static long __asm__J(Consumer<ASMBlock> blocker) {
-        __asm__internal__(
-                blocker.getClass().getName().split("\\$\\$")[0]
-        );
-        return 0;
-    }
-
-    static double __asm__D(Consumer<ASMBlock> blocker) {
-        __asm__internal__(
-                blocker.getClass().getName().split("\\$\\$")[0]
-        );
-        return 0;
-    }
-
-    static int __asm__I(Consumer<ASMBlock> blocker) {
-        __asm__internal__(
-                blocker.getClass().getName().split("\\$\\$")[0]
-        );
-        return 0;
-    }
-
-    static float __asm__F(Consumer<ASMBlock> blocker) {
-        __asm__internal__(
-                blocker.getClass().getName().split("\\$\\$")[0]
-        );
-        return 0;
-    }
-
-    static char __asm__C(Consumer<ASMBlock> blocker) {
-        __asm__internal__(
-                blocker.getClass().getName().split("\\$\\$")[0]
-        );
-        return '0';
-    }
-
-    static short __asm__S(Consumer<ASMBlock> blocker) {
-        __asm__internal__(
-                blocker.getClass().getName().split("\\$\\$")[0]
-        );
-        return 0;
-    }
-
-    static byte __asm__B(Consumer<ASMBlock> blocker) {
-        __asm__internal__(
-                blocker.getClass().getName().split("\\$\\$")[0]
-        );
-        return 0;
-    }
-
-    static boolean __asm__Z(Consumer<ASMBlock> blocker) {
-        __asm__internal__(
-                blocker.getClass().getName().split("\\$\\$")[0]
-        );
-        return false;
-    }
-
-    static <V> V __asm__A(Consumer<ASMBlock> blocker) {
-        __asm__internal__(
-                blocker.getClass().getName().split("\\$\\$")[0]
-        );
-        return (V) new Object();
     }
 
     ASMBlock INIT();
