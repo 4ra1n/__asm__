@@ -10,10 +10,9 @@ public class Canvas {
     private int col;
     private final List<TextPixel> pixelList = new ArrayList<>();
 
-    public Canvas moveTo(int row, int col) {
+    public void moveTo(int row, int col) {
         this.row = row;
         this.col = col;
-        return this;
     }
 
     public void up(int count) {
@@ -30,13 +29,6 @@ public class Canvas {
 
     public void right(int count) {
         this.col += count;
-    }
-
-    public void updatePosition(int startRow, int startCol) {
-        for (TextPixel pixel : pixelList) {
-            pixel.row += startRow;
-            pixel.col += startCol;
-        }
     }
 
     public void drawPixel(Box value) {
@@ -164,16 +156,6 @@ public class Canvas {
             left(totalWidth + 1);
         }
 
-    }
-
-    public void printPixels() {
-        Collections.sort(pixelList);
-        StringBuilder sb = new StringBuilder();
-        Formatter fm = new Formatter(sb);
-        for (TextPixel pixel : pixelList) {
-            fm.format("[DEBUG] %s%n", pixel);
-        }
-        System.out.println(sb);
     }
 
     public List<String> getLines() {
