@@ -1,6 +1,6 @@
 package com.sec.asm.core;
 
-import com.sec.asm.utils.AsmUtil;
+import com.sec.asm.utils.ASMUtil;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 
@@ -23,7 +23,7 @@ public final class PatchProcessor {
     reader.accept(inline, 0);
     if (inline.rewrite) {
       ClassWriter writer = new LoaderBoundClassWriter(ClassWriter.COMPUTE_FRAMES, loader);
-      AsmUtil.copySymbolTable(rewriter, writer);
+      ASMUtil.copySymbolTable(rewriter, writer);
       new ClassReader(rewriter.toByteArray()).accept(writer, 0);
       return writer.toByteArray();
     }

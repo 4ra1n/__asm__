@@ -1,6 +1,6 @@
 package com.sec.asm.core;
 
-import com.sec.asm.api.AsmBlock;
+import com.sec.asm.api.ASMBlock;
 import com.sec.asm.define.ClassDefiner;
 import org.objectweb.asm.*;
 
@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 public final class ASMInlineCore extends ClassVisitor {
 
     private static final Type ASM_BLOCK = Type
-            .getMethodType(Type.VOID_TYPE, Type.getType(AsmBlock.class));
+            .getMethodType(Type.VOID_TYPE, Type.getType(ASMBlock.class));
     @SuppressWarnings("all")
     private static final Handle LAMBDA_FACTORY_HANDLE = new Handle(
             Opcodes.H_INVOKESTATIC,
@@ -54,7 +54,7 @@ public final class ASMInlineCore extends ClassVisitor {
             @Override
             public void visitMethodInsn(int opcode, String owner, String name, String descriptor,
                                         boolean isInterface) {
-                if (opcode == Opcodes.INVOKESTATIC && owner.equals("com/sec/asm/api/AsmBlock")
+                if (opcode == Opcodes.INVOKESTATIC && owner.equals("com/sec/asm/api/ASMBlock")
                         && isInlineName(name)
                         && isInlineDescriptor(descriptor)) {
                     return;
@@ -77,7 +77,7 @@ public final class ASMInlineCore extends ClassVisitor {
                                         String methodName = handle.getName();
                                         Class<?> klass = generateInlineClass(
                                                 new MethodInfo(methodName, Constants.BLOCK_TYPE_DESC));
-                                        AsmBlock block = new VisitingAsmBlock(this);
+                                        ASMBlock block = new VisitingASMBlock(this);
                                         LookupUtil.lookup().findStatic(klass, methodName, Constants.BLOCK_TYPE)
                                                 .invokeExact(block);
                                         ASMInlineCore.this.rewrite = true;

@@ -7,13 +7,13 @@ import org.objectweb.asm.MethodVisitor;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles.Lookup;
 
-public final class AsmUtil {
+public final class ASMUtil {
 
     private static final MethodHandle MH_GET_SYMBOL_TABLE;
     private static final MethodHandle MH_SET_SYMBOL_TABLE;
     private static final MethodHandle MH_SET_FIRST_METHOD;
 
-    private AsmUtil() {
+    private ASMUtil() {
     }
 
     static Object getSymbolTable(ClassWriter writer) {
