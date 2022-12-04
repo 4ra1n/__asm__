@@ -18,17 +18,22 @@ public class VisitingAsmBlock implements AsmBlock {
     }
 
     @Override
-    public AsmBlock nop() {
+    public AsmBlock INIT() {
+        return this;
+    }
+
+    @Override
+    public AsmBlock NOP() {
         return visitInsn(NOP);
     }
 
     @Override
-    public AsmBlock $null() {
+    public AsmBlock NULL() {
         return visitInsn(ACONST_NULL);
     }
 
     @Override
-    public AsmBlock $int(int value) {
+    public AsmBlock INT(int value) {
         MethodVisitor visitor = this.visitor;
         if (value >= -1 && value <= 5) {
             visitor.visitInsn(value + 3);
@@ -43,7 +48,7 @@ public class VisitingAsmBlock implements AsmBlock {
     }
 
     @Override
-    public AsmBlock $long(long value) {
+    public AsmBlock LONG(long value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0L || value == 1L) {
             visitor.visitInsn((int) (value + 9));
@@ -54,7 +59,7 @@ public class VisitingAsmBlock implements AsmBlock {
     }
 
     @Override
-    public AsmBlock $float(float value) {
+    public AsmBlock FLOAT(float value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0.0F || value == 1.0F || value == 2.0F) {
             visitor.visitInsn((int) value + 11);
@@ -65,7 +70,7 @@ public class VisitingAsmBlock implements AsmBlock {
     }
 
     @Override
-    public AsmBlock $double(double value) {
+    public AsmBlock DOUBLE(double value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0.0 || value == 1.0) {
             visitor.visitInsn((int) value + 14);
@@ -76,22 +81,22 @@ public class VisitingAsmBlock implements AsmBlock {
     }
 
     @Override
-    public AsmBlock ldc(String value) {
+    public AsmBlock LDC(String value) {
         return visitLdcInsn(value);
     }
 
     @Override
-    public AsmBlock ldc(Class<?> type) {
+    public AsmBlock LDC(Class<?> type) {
         return visitLdcInsn(Type.getType(type));
     }
 
     @Override
-    public AsmBlock ldc(Type type) {
+    public AsmBlock LDC(Type type) {
         return visitLdcInsn(type);
     }
 
     @Override
-    public AsmBlock ldc(MethodType type) {
+    public AsmBlock LDC(MethodType type) {
         Class<?>[] $parameters = type.parameterArray();
         int j = $parameters.length;
         Type[] parameters = new Type[j];
@@ -102,1062 +107,1062 @@ public class VisitingAsmBlock implements AsmBlock {
     }
 
     @Override
-    public AsmBlock ldc(Handle handle) {
+    public AsmBlock LDC(Handle handle) {
         return visitLdcInsn(handle);
     }
 
     @Override
-    public AsmBlock ldc(ConstantDynamic constantDynamic) {
+    public AsmBlock LDC(ConstantDynamic constantDynamic) {
         return visitLdcInsn(constantDynamic);
     }
 
     @Override
-    public AsmBlock iload(int idx) {
+    public AsmBlock ILOAD(int idx) {
         return visitVarInsn(ILOAD, idx);
     }
 
     @Override
-    public AsmBlock lload(int idx) {
+    public AsmBlock LLOAD(int idx) {
         return visitVarInsn(LLOAD, idx);
     }
 
     @Override
-    public AsmBlock fload(int idx) {
+    public AsmBlock FLOAD(int idx) {
         return visitVarInsn(FLOAD, idx);
     }
 
     @Override
-    public AsmBlock dload(int idx) {
+    public AsmBlock DLOAD(int idx) {
         return visitVarInsn(DLOAD, idx);
     }
 
     @Override
-    public AsmBlock aload(int idx) {
+    public AsmBlock ALOAD(int idx) {
         return visitVarInsn(ALOAD, idx);
     }
 
     @Override
-    public AsmBlock iaload() {
+    public AsmBlock IALOAD() {
         return visitInsn(IALOAD);
     }
 
     @Override
-    public AsmBlock laload() {
+    public AsmBlock LALOAD() {
         return visitInsn(LALOAD);
     }
 
     @Override
-    public AsmBlock faload() {
+    public AsmBlock FALOAD() {
         return visitInsn(FALOAD);
     }
 
     @Override
-    public AsmBlock daload() {
+    public AsmBlock DALOAD() {
         return visitInsn(DALOAD);
     }
 
     @Override
-    public AsmBlock aaload() {
+    public AsmBlock AALOAD() {
         return visitInsn(AALOAD);
     }
 
     @Override
-    public AsmBlock baload() {
+    public AsmBlock BALOAD() {
         return visitInsn(BALOAD);
     }
 
     @Override
-    public AsmBlock caload() {
+    public AsmBlock CALOAD() {
         return visitInsn(CALOAD);
     }
 
     @Override
-    public AsmBlock saload() {
+    public AsmBlock SALOAD() {
         return visitInsn(SALOAD);
     }
 
     @Override
-    public AsmBlock istore(int idx) {
+    public AsmBlock ISTORE(int idx) {
         return visitVarInsn(ISTORE, idx);
     }
 
     @Override
-    public AsmBlock lstore(int idx) {
+    public AsmBlock LSTORE(int idx) {
         return visitVarInsn(LSTORE, idx);
     }
 
     @Override
-    public AsmBlock fstore(int idx) {
+    public AsmBlock FSTORE(int idx) {
         return visitVarInsn(FSTORE, idx);
     }
 
     @Override
-    public AsmBlock dstore(int idx) {
+    public AsmBlock DSTORE(int idx) {
         return visitVarInsn(DSTORE, idx);
     }
 
     @Override
-    public AsmBlock astore(int idx) {
+    public AsmBlock ASTORE(int idx) {
         return visitVarInsn(ASTORE, idx);
     }
 
     @Override
-    public AsmBlock iastore() {
+    public AsmBlock IASTORE() {
         return visitInsn(IASTORE);
     }
 
     @Override
-    public AsmBlock lastore() {
+    public AsmBlock LASTORE() {
         return visitInsn(LASTORE);
     }
 
     @Override
-    public AsmBlock fastore() {
+    public AsmBlock FASTORE() {
         return visitInsn(FASTORE);
     }
 
     @Override
-    public AsmBlock dastore() {
+    public AsmBlock DASTORE() {
         return visitInsn(DASTORE);
     }
 
     @Override
-    public AsmBlock aastore() {
+    public AsmBlock AASTORE() {
         return visitInsn(AASTORE);
     }
 
     @Override
-    public AsmBlock bastore() {
+    public AsmBlock BASTORE() {
         return visitInsn(BASTORE);
     }
 
     @Override
-    public AsmBlock castore() {
+    public AsmBlock CASTORE() {
         return visitInsn(CASTORE);
     }
 
     @Override
-    public AsmBlock sastore() {
+    public AsmBlock SASTORE() {
         return visitInsn(SASTORE);
     }
 
     @Override
-    public AsmBlock pop() {
+    public AsmBlock POP() {
         return visitInsn(POP);
     }
 
     @Override
-    public AsmBlock pop2() {
+    public AsmBlock POP2() {
         return visitInsn(POP2);
     }
 
     @Override
-    public AsmBlock dup() {
+    public AsmBlock DUP() {
         return visitInsn(DUP);
     }
 
     @Override
-    public AsmBlock dupx1() {
+    public AsmBlock DUPX1() {
         return visitInsn(DUP_X1);
     }
 
     @Override
-    public AsmBlock dupx2() {
+    public AsmBlock DUPX2() {
         return visitInsn(DUP_X2);
     }
 
     @Override
-    public AsmBlock dup2() {
+    public AsmBlock DUP2() {
         return visitInsn(DUP2);
     }
 
     @Override
-    public AsmBlock dup2x1() {
+    public AsmBlock DUP2X1() {
         return visitInsn(DUP2_X1);
     }
 
     @Override
-    public AsmBlock dup2x2() {
+    public AsmBlock DUP2X2() {
         return visitInsn(DUP2_X2);
     }
 
     @Override
-    public AsmBlock swap() {
+    public AsmBlock SWAP() {
         return visitInsn(SWAP);
     }
 
     @Override
-    public AsmBlock iadd() {
+    public AsmBlock IADD() {
         return visitInsn(IADD);
     }
 
     @Override
-    public AsmBlock ladd() {
+    public AsmBlock LADD() {
         return visitInsn(LADD);
     }
 
     @Override
-    public AsmBlock fadd() {
+    public AsmBlock FADD() {
         return visitInsn(FADD);
     }
 
     @Override
-    public AsmBlock dadd() {
+    public AsmBlock DADD() {
         return visitInsn(DADD);
     }
 
     @Override
-    public AsmBlock isub() {
+    public AsmBlock ISUB() {
         return visitInsn(ISUB);
     }
 
     @Override
-    public AsmBlock lsub() {
+    public AsmBlock LSUB() {
         return visitInsn(LSUB);
     }
 
     @Override
-    public AsmBlock fsub() {
+    public AsmBlock FSUB() {
         return visitInsn(FSUB);
     }
 
     @Override
-    public AsmBlock dsub() {
+    public AsmBlock DSUB() {
         return visitInsn(DSUB);
     }
 
     @Override
-    public AsmBlock imul() {
+    public AsmBlock IMUL() {
         return visitInsn(IMUL);
     }
 
     @Override
-    public AsmBlock lmul() {
+    public AsmBlock LMUL() {
         return visitInsn(LMUL);
     }
 
     @Override
-    public AsmBlock fmul() {
+    public AsmBlock FMUL() {
         return visitInsn(FMUL);
     }
 
     @Override
-    public AsmBlock dmul() {
+    public AsmBlock DMUL() {
         return visitInsn(DMUL);
     }
 
     @Override
-    public AsmBlock idiv() {
+    public AsmBlock IDIV() {
         return visitInsn(IDIV);
     }
 
     @Override
-    public AsmBlock ldiv() {
+    public AsmBlock LDIV() {
         return visitInsn(LDIV);
     }
 
     @Override
-    public AsmBlock fdiv() {
+    public AsmBlock FDIV() {
         return visitInsn(FDIV);
     }
 
     @Override
-    public AsmBlock ddiv() {
+    public AsmBlock DDIV() {
         return visitInsn(DDIV);
     }
 
     @Override
-    public AsmBlock irem() {
+    public AsmBlock IREM() {
         return visitInsn(IREM);
     }
 
     @Override
-    public AsmBlock lrem() {
+    public AsmBlock LREM() {
         return visitInsn(LREM);
     }
 
     @Override
-    public AsmBlock frem() {
+    public AsmBlock FREM() {
         return visitInsn(FREM);
     }
 
     @Override
-    public AsmBlock drem() {
+    public AsmBlock DREM() {
         return visitInsn(DREM);
     }
 
     @Override
-    public AsmBlock ineg() {
+    public AsmBlock INEG() {
         return visitInsn(INEG);
     }
 
     @Override
-    public AsmBlock lneg() {
+    public AsmBlock LNEG() {
         return visitInsn(LNEG);
     }
 
     @Override
-    public AsmBlock fneg() {
+    public AsmBlock FNEG() {
         return visitInsn(FNEG);
     }
 
     @Override
-    public AsmBlock dneg() {
+    public AsmBlock DNEG() {
         return visitInsn(DNEG);
     }
 
     @Override
-    public AsmBlock ishl() {
+    public AsmBlock ISHL() {
         return visitInsn(ISHL);
     }
 
     @Override
-    public AsmBlock lshl() {
+    public AsmBlock LSHL() {
         return visitInsn(LSHL);
     }
 
     @Override
-    public AsmBlock ishr() {
+    public AsmBlock ISHR() {
         return visitInsn(ISHR);
     }
 
     @Override
-    public AsmBlock lshr() {
+    public AsmBlock LSHR() {
         return visitInsn(LSHR);
     }
 
     @Override
-    public AsmBlock iushr() {
+    public AsmBlock IUSHR() {
         return visitInsn(IUSHR);
     }
 
     @Override
-    public AsmBlock lushr() {
+    public AsmBlock LUSHR() {
         return visitInsn(LUSHR);
     }
 
     @Override
-    public AsmBlock iand() {
+    public AsmBlock IAND() {
         return visitInsn(IAND);
     }
 
     @Override
-    public AsmBlock land() {
+    public AsmBlock LAND() {
         return visitInsn(LAND);
     }
 
     @Override
-    public AsmBlock ior() {
+    public AsmBlock IOR() {
         return visitInsn(IOR);
     }
 
     @Override
-    public AsmBlock lor() {
+    public AsmBlock LOR() {
         return visitInsn(LOR);
     }
 
     @Override
-    public AsmBlock ixor() {
+    public AsmBlock IXOR() {
         return visitInsn(IXOR);
     }
 
     @Override
-    public AsmBlock lxor() {
+    public AsmBlock LXOR() {
         return visitInsn(LXOR);
     }
 
     @Override
-    public AsmBlock iinc(int idx, int value) {
+    public AsmBlock IINC(int idx, int value) {
         visitor.visitIincInsn(idx, value);
         return this;
     }
 
     @Override
-    public AsmBlock i2l() {
+    public AsmBlock I2L() {
         return visitInsn(I2L);
     }
 
     @Override
-    public AsmBlock i2f() {
+    public AsmBlock I2F() {
         return visitInsn(I2F);
     }
 
     @Override
-    public AsmBlock i2d() {
+    public AsmBlock I2D() {
         return visitInsn(I2D);
     }
 
     @Override
-    public AsmBlock l2i() {
+    public AsmBlock L2I() {
         return visitInsn(L2I);
     }
 
     @Override
-    public AsmBlock l2f() {
+    public AsmBlock L2F() {
         return visitInsn(L2F);
     }
 
     @Override
-    public AsmBlock l2d() {
+    public AsmBlock L2D() {
         return visitInsn(L2D);
     }
 
     @Override
-    public AsmBlock f2i() {
+    public AsmBlock F2I() {
         return visitInsn(F2I);
     }
 
     @Override
-    public AsmBlock f2l() {
+    public AsmBlock F2L() {
         return visitInsn(F2L);
     }
 
     @Override
-    public AsmBlock f2d() {
+    public AsmBlock F2D() {
         return visitInsn(F2D);
     }
 
     @Override
-    public AsmBlock d2i() {
+    public AsmBlock D2I() {
         return visitInsn(D2I);
     }
 
     @Override
-    public AsmBlock d2l() {
+    public AsmBlock D2L() {
         return visitInsn(D2L);
     }
 
     @Override
-    public AsmBlock d2f() {
+    public AsmBlock D2F() {
         return visitInsn(D2F);
     }
 
     @Override
-    public AsmBlock i2b() {
+    public AsmBlock I2B() {
         return visitInsn(I2B);
     }
 
     @Override
-    public AsmBlock i2c() {
+    public AsmBlock I2C() {
         return visitInsn(I2C);
     }
 
     @Override
-    public AsmBlock i2s() {
+    public AsmBlock I2S() {
         return visitInsn(I2S);
     }
 
     @Override
-    public AsmBlock lcmp() {
+    public AsmBlock LCMP() {
         return visitInsn(LCMP);
     }
 
     @Override
-    public AsmBlock fcmpl() {
+    public AsmBlock FCMPL() {
         return visitInsn(FCMPL);
     }
 
     @Override
-    public AsmBlock fcmpg() {
+    public AsmBlock FCMPG() {
         return visitInsn(FCMPG);
     }
 
     @Override
-    public AsmBlock dcmpl() {
+    public AsmBlock DCMPL() {
         return visitInsn(DCMPL);
     }
 
     @Override
-    public AsmBlock dcmpg() {
+    public AsmBlock DCMPG() {
         return visitInsn(DCMPG);
     }
 
     @Override
-    public AsmBlock ifeq(Label label) {
+    public AsmBlock IFEQ(Label label) {
         return visitJumpInsn(IFEQ, label);
     }
 
     @Override
-    public AsmBlock ifne(Label label) {
+    public AsmBlock IFNE(Label label) {
         return visitJumpInsn(IFNE, label);
     }
 
     @Override
-    public AsmBlock iflt(Label label) {
+    public AsmBlock IFLT(Label label) {
         return visitJumpInsn(IFLT, label);
     }
 
     @Override
-    public AsmBlock ifge(Label label) {
+    public AsmBlock IFGE(Label label) {
         return visitJumpInsn(IFGE, label);
     }
 
     @Override
-    public AsmBlock ifgt(Label label) {
+    public AsmBlock IFGT(Label label) {
         return visitJumpInsn(IFGT, label);
     }
 
     @Override
-    public AsmBlock ifle(Label label) {
+    public AsmBlock IFLE(Label label) {
         return visitJumpInsn(IFLE, label);
     }
 
     @Override
-    public AsmBlock icmpeq(Label label) {
+    public AsmBlock ICMPEQ(Label label) {
         return visitJumpInsn(IF_ICMPEQ, label);
     }
 
     @Override
-    public AsmBlock icmpne(Label label) {
+    public AsmBlock ICMPNE(Label label) {
         return visitJumpInsn(IF_ICMPNE, label);
     }
 
     @Override
-    public AsmBlock icmplt(Label label) {
+    public AsmBlock ICMPLT(Label label) {
         return visitJumpInsn(IF_ICMPLT, label);
     }
 
     @Override
-    public AsmBlock icmpge(Label label) {
+    public AsmBlock ICMPGE(Label label) {
         return visitJumpInsn(IF_ICMPGE, label);
     }
 
     @Override
-    public AsmBlock icmpgt(Label label) {
+    public AsmBlock ICMPGT(Label label) {
         return visitJumpInsn(IF_ICMPGT, label);
     }
 
     @Override
-    public AsmBlock icmple(Label label) {
+    public AsmBlock ICMPLE(Label label) {
         return visitJumpInsn(IF_ICMPLE, label);
     }
 
     @Override
-    public AsmBlock acmpeq(Label label) {
+    public AsmBlock ACMPEQ(Label label) {
         return visitJumpInsn(IF_ACMPEQ, label);
     }
 
     @Override
-    public AsmBlock acmpne(Label label) {
+    public AsmBlock ACMPNE(Label label) {
         return visitJumpInsn(IF_ACMPNE, label);
     }
 
     @Override
-    public AsmBlock $goto(Label label) {
+    public AsmBlock GOTO(Label label) {
         return visitJumpInsn(GOTO, label);
     }
 
     @Override
-    public AsmBlock tableswitch(int min, int max, Label dflt, Label... labels) {
+    public AsmBlock TABLESWITCH(int min, int max, Label dflt, Label... labels) {
         visitor.visitTableSwitchInsn(min, max, dflt, labels);
         return this;
     }
 
     @Override
-    public AsmBlock lookupswitch(int[] keys, Label dflt, Label... labels) {
+    public AsmBlock LOOKUPSWITCH(int[] keys, Label dflt, Label... labels) {
         visitor.visitLookupSwitchInsn(dflt, keys, labels);
         return this;
     }
 
     @Override
-    public AsmBlock ireturn() {
+    public AsmBlock IRETURN() {
         return visitInsn(IRETURN);
     }
 
     @Override
-    public AsmBlock lreturn() {
+    public AsmBlock LRETURN() {
         return visitInsn(LRETURN);
     }
 
     @Override
-    public AsmBlock freturn() {
+    public AsmBlock FRETURN() {
         return visitInsn(FRETURN);
     }
 
     @Override
-    public AsmBlock dreturn() {
+    public AsmBlock DRETURN() {
         return visitInsn(DRETURN);
     }
 
     @Override
-    public AsmBlock areturn() {
+    public AsmBlock ARETURN() {
         return visitInsn(ARETURN);
     }
 
     @Override
-    public AsmBlock $return() {
+    public AsmBlock RETURN() {
         return visitInsn(RETURN);
     }
 
     @Override
-    public AsmBlock getstatic(String owner, String name, String desc) {
+    public AsmBlock GETSTATIC(String owner, String name, String desc) {
         visitor.visitFieldInsn(GETSTATIC, owner, name, desc);
         return this;
     }
 
     @Override
-    public AsmBlock putstatic(String owner, String name, String desc) {
+    public AsmBlock PUTSTATIC(String owner, String name, String desc) {
         visitor.visitFieldInsn(PUTSTATIC, owner, name, desc);
         return this;
     }
 
     @Override
-    public AsmBlock getfield(String owner, String name, String desc) {
+    public AsmBlock GETFIELD(String owner, String name, String desc) {
         visitor.visitFieldInsn(GETFIELD, owner, name, desc);
         return this;
     }
 
     @Override
-    public AsmBlock putfield(String owner, String name, String desc) {
+    public AsmBlock PUTFIELD(String owner, String name, String desc) {
         visitor.visitFieldInsn(PUTFIELD, owner, name, desc);
         return this;
     }
 
     @Override
-    public AsmBlock getstatic(Class<?> owner, String name, String desc) {
-        return getstatic(internalName(owner), name, desc);
+    public AsmBlock GETSTATIC(Class<?> owner, String name, String desc) {
+        return GETSTATIC(internalName(owner), name, desc);
     }
 
     @Override
-    public AsmBlock putstatic(Class<?> owner, String name, String desc) {
-        return putstatic(internalName(owner), name, desc);
+    public AsmBlock PUTSTATIC(Class<?> owner, String name, String desc) {
+        return PUTSTATIC(internalName(owner), name, desc);
     }
 
     @Override
-    public AsmBlock getfield(Class<?> owner, String name, String desc) {
-        return getfield(internalName(owner), name, desc);
+    public AsmBlock GETFIELD(Class<?> owner, String name, String desc) {
+        return GETFIELD(internalName(owner), name, desc);
     }
 
     @Override
-    public AsmBlock putfield(Class<?> owner, String name, String desc) {
-        return putfield(internalName(owner), name, desc);
+    public AsmBlock PUTFIELD(Class<?> owner, String name, String desc) {
+        return PUTFIELD(internalName(owner), name, desc);
     }
 
     @Override
-    public AsmBlock getstatic(String owner, String name, Class<?> desc) {
-        return getstatic(owner, name, fieldDescriptor(desc));
+    public AsmBlock GETSTATIC(String owner, String name, Class<?> desc) {
+        return GETSTATIC(owner, name, fieldDescriptor(desc));
     }
 
     @Override
-    public AsmBlock putstatic(String owner, String name, Class<?> desc) {
-        return putstatic(owner, name, fieldDescriptor(desc));
+    public AsmBlock PUTSTATIC(String owner, String name, Class<?> desc) {
+        return PUTSTATIC(owner, name, fieldDescriptor(desc));
     }
 
     @Override
-    public AsmBlock getfield(String owner, String name, Class<?> desc) {
-        return getfield(owner, name, fieldDescriptor(desc));
+    public AsmBlock GETFIELD(String owner, String name, Class<?> desc) {
+        return GETFIELD(owner, name, fieldDescriptor(desc));
     }
 
     @Override
-    public AsmBlock putfield(String owner, String name, Class<?> desc) {
-        return putfield(owner, name, fieldDescriptor(desc));
+    public AsmBlock PUTFIELD(String owner, String name, Class<?> desc) {
+        return PUTFIELD(owner, name, fieldDescriptor(desc));
     }
 
     @Override
-    public AsmBlock getstatic(Class<?> owner, String name, Class<?> desc) {
-        return getstatic(internalName(owner), name, fieldDescriptor(desc));
+    public AsmBlock GETSTATIC(Class<?> owner, String name, Class<?> desc) {
+        return GETSTATIC(internalName(owner), name, fieldDescriptor(desc));
     }
 
     @Override
-    public AsmBlock putstatic(Class<?> owner, String name, Class<?> desc) {
-        return putstatic(internalName(owner), name, fieldDescriptor(desc));
+    public AsmBlock PUTSTATIC(Class<?> owner, String name, Class<?> desc) {
+        return PUTSTATIC(internalName(owner), name, fieldDescriptor(desc));
     }
 
     @Override
-    public AsmBlock getfield(Class<?> owner, String name, Class<?> desc) {
-        return getfield(internalName(owner), name, fieldDescriptor(desc));
+    public AsmBlock GETFIELD(Class<?> owner, String name, Class<?> desc) {
+        return GETFIELD(internalName(owner), name, fieldDescriptor(desc));
     }
 
     @Override
-    public AsmBlock putfield(Class<?> owner, String name, Class<?> desc) {
-        return putfield(internalName(owner), name, fieldDescriptor(desc));
+    public AsmBlock PUTFIELD(Class<?> owner, String name, Class<?> desc) {
+        return PUTFIELD(internalName(owner), name, fieldDescriptor(desc));
     }
 
     @Override
-    public AsmBlock invokevirtual(String owner, String name, String desc) {
+    public AsmBlock INVOKEVIRTUAL(String owner, String name, String desc) {
         visitor.visitMethodInsn(INVOKEVIRTUAL, owner, name, desc, false);
         return this;
     }
 
     @Override
-    public AsmBlock invokespecial(String owner, String name, String desc) {
+    public AsmBlock INVOKESPECIAL(String owner, String name, String desc) {
         visitor.visitMethodInsn(INVOKESPECIAL, owner, name, desc, false);
         return this;
     }
 
     @Override
-    public AsmBlock invokestatic(String owner, String name, String desc) {
+    public AsmBlock INVOKESTATIC(String owner, String name, String desc) {
         visitor.visitMethodInsn(INVOKESTATIC, owner, name, desc, false);
         return this;
     }
 
     @Override
-    public AsmBlock invokeinterface(String owner, String name, String desc) {
+    public AsmBlock INVOKEINTERFACE(String owner, String name, String desc) {
         visitor.visitMethodInsn(INVOKEINTERFACE, owner, name, desc, true);
         return this;
     }
 
     @Override
-    public AsmBlock invokevirtual(String owner, String name, MethodType type) {
-        return invokevirtual(owner, name, type.toMethodDescriptorString());
+    public AsmBlock INVOKEVIRTUAL(String owner, String name, MethodType type) {
+        return INVOKEVIRTUAL(owner, name, type.toMethodDescriptorString());
     }
 
     @Override
-    public AsmBlock invokestatic(String owner, String name, MethodType type) {
-        return invokestatic(owner, name, type.toMethodDescriptorString());
+    public AsmBlock INVOKESTATIC(String owner, String name, MethodType type) {
+        return INVOKESTATIC(owner, name, type.toMethodDescriptorString());
     }
 
     @Override
-    public AsmBlock invokeinterface(String owner, String name, MethodType type) {
-        return invokeinterface(owner, name, type.toMethodDescriptorString());
+    public AsmBlock INVOKEINTERFACE(String owner, String name, MethodType type) {
+        return INVOKEINTERFACE(owner, name, type.toMethodDescriptorString());
     }
 
     @Override
-    public AsmBlock invokevirtual(Class<?> owner, String name, String desc) {
-        return invokevirtual(internalName(owner), name, desc);
+    public AsmBlock INVOKEVIRTUAL(Class<?> owner, String name, String desc) {
+        return INVOKEVIRTUAL(internalName(owner), name, desc);
     }
 
     @Override
-    public AsmBlock invokespecial(Class<?> owner, String name, String desc) {
-        return invokespecial(internalName(owner), name, desc);
+    public AsmBlock INVOKESPECIAL(Class<?> owner, String name, String desc) {
+        return INVOKESPECIAL(internalName(owner), name, desc);
     }
 
     @Override
-    public AsmBlock invokestatic(Class<?> owner, String name, String desc) {
-        return invokestatic(internalName(owner), name, desc);
+    public AsmBlock INVOKESTATIC(Class<?> owner, String name, String desc) {
+        return INVOKESTATIC(internalName(owner), name, desc);
     }
 
     @Override
-    public AsmBlock invokevirtual(Class<?> owner, String name, MethodType type) {
-        return invokevirtual(internalName(owner), name, type.toMethodDescriptorString());
+    public AsmBlock INVOKEVIRTUAL(Class<?> owner, String name, MethodType type) {
+        return INVOKEVIRTUAL(internalName(owner), name, type.toMethodDescriptorString());
     }
 
     @Override
-    public AsmBlock invokespecial(Class<?> owner, String name, MethodType type) {
-        return invokespecial(internalName(owner), name, type.toMethodDescriptorString());
+    public AsmBlock INVOKESPECIAL(Class<?> owner, String name, MethodType type) {
+        return INVOKESPECIAL(internalName(owner), name, type.toMethodDescriptorString());
     }
 
     @Override
-    public AsmBlock invokestatic(Class<?> owner, String name, MethodType type) {
-        return invokestatic(internalName(owner), name, type.toMethodDescriptorString());
+    public AsmBlock INVOKESTATIC(Class<?> owner, String name, MethodType type) {
+        return INVOKESTATIC(internalName(owner), name, type.toMethodDescriptorString());
     }
 
     @Override
-    public AsmBlock invokeinterface(Class<?> owner, String name, String desc) {
-        return invokeinterface(internalName(owner), name, desc);
+    public AsmBlock INVOKEINTERFACE(Class<?> owner, String name, String desc) {
+        return INVOKEINTERFACE(internalName(owner), name, desc);
     }
 
     @Override
-    public AsmBlock invokeinterface(Class<?> owner, String name, MethodType type) {
-        return invokeinterface(internalName(owner), name, type.toMethodDescriptorString());
+    public AsmBlock INVOKEINTERFACE(Class<?> owner, String name, MethodType type) {
+        return INVOKEINTERFACE(internalName(owner), name, type.toMethodDescriptorString());
     }
 
     @Override
-    public AsmBlock invokedynamic(String name, String desc, Handle bootstrap, Object... args) {
+    public AsmBlock INVOKEDYNAMIC(String name, String desc, Handle bootstrap, Object... args) {
         visitor.visitInvokeDynamicInsn(name, desc, bootstrap, args);
         return this;
     }
 
     @Override
-    public AsmBlock $new(String type) {
+    public AsmBlock NEW(String type) {
         visitor.visitTypeInsn(NEW, type);
         return this;
     }
 
     @Override
-    public AsmBlock $new(Class<?> type) {
+    public AsmBlock NEW(Class<?> type) {
         visitor.visitTypeInsn(NEW, Type.getType(type).getInternalName());
         return this;
     }
 
     @Override
-    public AsmBlock $new(Type type) {
+    public AsmBlock NEW(Type type) {
         visitor.visitTypeInsn(NEW, type.getInternalName());
         return this;
     }
 
     @Override
-    public AsmBlock newarray(int type) {
+    public AsmBlock NEWARRAY(int type) {
         visitor.visitIntInsn(NEWARRAY, type);
         return this;
     }
 
     @Override
-    public AsmBlock newarray(String type) {
+    public AsmBlock NEWARRAY(String type) {
         visitor.visitTypeInsn(ANEWARRAY, type);
         return this;
     }
 
     @Override
-    public AsmBlock arraylength() {
+    public AsmBlock ARRAYLENGTH() {
         return visitInsn(ARRAYLENGTH);
     }
 
     @Override
-    public AsmBlock athrow() {
+    public AsmBlock ATHROW() {
         return visitInsn(ATHROW);
     }
 
     @Override
-    public AsmBlock checkcast(String type) {
+    public AsmBlock CHECKCAST(String type) {
         visitor.visitTypeInsn(CHECKCAST, type);
         return this;
     }
 
     @Override
-    public AsmBlock $instanceof(String type) {
+    public AsmBlock INSTANCEOF(String type) {
         visitor.visitTypeInsn(INSTANCEOF, type);
         return this;
     }
 
     @Override
-    public AsmBlock monitorenter() {
+    public AsmBlock MONITORENTER() {
         return visitInsn(MONITORENTER);
     }
 
     @Override
-    public AsmBlock monitorexit() {
+    public AsmBlock MONITOREXIT() {
         return visitInsn(MONITOREXIT);
     }
 
     @Override
-    public AsmBlock multinewarray(String desc, int dimensions) {
+    public AsmBlock MULTINEWARRAY(String desc, int dimensions) {
         visitor.visitMultiANewArrayInsn(desc, dimensions);
         return this;
     }
 
     @Override
-    public AsmBlock ifnull(Label label) {
+    public AsmBlock IFNULL(Label label) {
         return visitJumpInsn(IFNULL, label);
     }
 
     @Override
-    public AsmBlock ifnonnull(Label label) {
+    public AsmBlock IFNONNULL(Label label) {
         return visitJumpInsn(IFNONNULL, label);
     }
 
     @Override
-    public AsmBlock label(Label label) {
+    public AsmBlock LABEL(Label label) {
         visitor.visitLabel(label);
         return this;
     }
 
     @Override
-    public AsmBlock $try(Label start, Label end, Label handler, String type) {
+    public AsmBlock TRY(Label start, Label end, Label handler, String type) {
         visitor.visitTryCatchBlock(start, end, handler, type);
         return this;
     }
 
     @Override
-    public AsmBlock line(int line, Label start) {
+    public AsmBlock LINE(int line, Label start) {
         visitor.visitLineNumber(line, start);
         return this;
     }
 
     @Override
-    public AsmBlock parameter(String name, int access) {
+    public AsmBlock PARAMETER(String name, int access) {
         visitor.visitParameter(name, access);
         return this;
     }
 
     @Override
-    public AsmBlock array(long[] array, int off, int len) {
-        newarray(T_LONG);
+    public AsmBlock ARRAY(long[] array, int off, int len) {
+        NEWARRAY(T_LONG);
         while (off < len) {
             long v = array[off];
-            dup().$int(off++).$long(v).lastore();
+            DUP().INT(off++).LONG(v).LASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(double[] array, int off, int len) {
-        $int(len - off);
-        newarray(T_DOUBLE);
+    public AsmBlock ARRAY(double[] array, int off, int len) {
+        INT(len - off);
+        NEWARRAY(T_DOUBLE);
         while (off < len) {
             double v = array[off];
-            dup().$int(off++).$double(v).dastore();
+            DUP().INT(off++).DOUBLE(v).DASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(int[] array, int off, int len) {
-        $int(len - off);
-        newarray(T_INT);
+    public AsmBlock ARRAY(int[] array, int off, int len) {
+        INT(len - off);
+        NEWARRAY(T_INT);
         while (off < len) {
             int v = array[off];
-            dup().$int(off++).$int(v).iastore();
+            DUP().INT(off++).INT(v).IASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(float[] array, int off, int len) {
-        $int(len - off);
-        newarray(T_FLOAT);
+    public AsmBlock ARRAY(float[] array, int off, int len) {
+        INT(len - off);
+        NEWARRAY(T_FLOAT);
         while (off < len) {
             float v = array[off];
-            dup().$int(off++).$float(v).fastore();
+            DUP().INT(off++).FLOAT(v).FASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(char[] array, int off, int len) {
-        $int(len - off);
-        newarray(T_CHAR);
+    public AsmBlock ARRAY(char[] array, int off, int len) {
+        INT(len - off);
+        NEWARRAY(T_CHAR);
         while (off < len) {
             char v = array[off];
-            dup().$int(off++).$int(v).castore();
+            DUP().INT(off++).INT(v).CASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(short[] array, int off, int len) {
-        $int(len - off);
-        newarray(T_SHORT);
+    public AsmBlock ARRAY(short[] array, int off, int len) {
+        INT(len - off);
+        NEWARRAY(T_SHORT);
         while (off < len) {
             short v = array[off];
-            dup().$int(off++).$int(v).sastore();
+            DUP().INT(off++).INT(v).SASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(byte[] array, int off, int len) {
-        $int(len - off);
-        newarray(T_BYTE);
+    public AsmBlock ARRAY(byte[] array, int off, int len) {
+        INT(len - off);
+        NEWARRAY(T_BYTE);
         while (off < len) {
             byte v = array[off];
-            dup().$int(off++).$int(v).bastore();
+            DUP().INT(off++).INT(v).BASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(boolean[] array, int off, int len) {
-        $int(len - off);
-        newarray(T_BOOLEAN);
+    public AsmBlock ARRAY(boolean[] array, int off, int len) {
+        INT(len - off);
+        NEWARRAY(T_BOOLEAN);
         while (off < len) {
             boolean v = array[off];
-            dup().$int(off++).$int(v ? 1 : 0).bastore();
+            DUP().INT(off++).INT(v ? 1 : 0).BASTORE();
         }
         return this;
     }
 
     @Override
-    public <T> AsmBlock array(T[] array, int off, int len, BiIntConsumer<T> producer) {
-        $int(len - off);
+    public <T> AsmBlock ARRAY(T[] array, int off, int len, BiIntConsumer<T> producer) {
+        INT(len - off);
         visitor.visitTypeInsn(ANEWARRAY, Type.getInternalName(array.getClass().getComponentType()));
         while (off < len) {
             T v = array[off];
             int idx = off++;
-            dup().$int(idx);
+            DUP().INT(idx);
             producer.accept(idx, v);
-            aastore();
+            AASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(long[] array) {
-        $int(array.length);
-        newarray(T_LONG);
+    public AsmBlock ARRAY(long[] array) {
+        INT(array.length);
+        NEWARRAY(T_LONG);
         for (int i = 0, j = array.length; i < j; i++) {
             long v = array[i];
-            dup().$int(i).$long(v).lastore();
+            DUP().INT(i).LONG(v).LASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(double[] array) {
-        $int(array.length);
-        newarray(T_DOUBLE);
+    public AsmBlock ARRAY(double[] array) {
+        INT(array.length);
+        NEWARRAY(T_DOUBLE);
         for (int i = 0, j = array.length; i < j; i++) {
             double v = array[i];
-            dup().$int(i).$double(v).dastore();
+            DUP().INT(i).DOUBLE(v).DASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(int[] array) {
-        $int(array.length);
-        newarray(T_INT);
+    public AsmBlock ARRAY(int[] array) {
+        INT(array.length);
+        NEWARRAY(T_INT);
         for (int i = 0, j = array.length; i < j; i++) {
             int v = array[i];
-            dup().$int(i).$int(v).iastore();
+            DUP().INT(i).INT(v).IASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(float[] array) {
-        $int(array.length);
-        newarray(T_FLOAT);
+    public AsmBlock ARRAY(float[] array) {
+        INT(array.length);
+        NEWARRAY(T_FLOAT);
         for (int i = 0, j = array.length; i < j; i++) {
             float v = array[i];
-            dup().$int(i).$float(v).fastore();
+            DUP().INT(i).FLOAT(v).FASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(char[] array) {
-        $int(array.length);
-        newarray(T_CHAR);
+    public AsmBlock ARRAY(char[] array) {
+        INT(array.length);
+        NEWARRAY(T_CHAR);
         for (int i = 0, j = array.length; i < j; i++) {
             char v = array[i];
-            dup().$int(i).$int(v).castore();
+            DUP().INT(i).INT(v).CASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(short[] array) {
-        $int(array.length);
-        newarray(T_SHORT);
+    public AsmBlock ARRAY(short[] array) {
+        INT(array.length);
+        NEWARRAY(T_SHORT);
         for (int i = 0, j = array.length; i < j; i++) {
             short v = array[i];
-            dup().$int(i).$int(v).sastore();
+            DUP().INT(i).INT(v).SASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(byte[] array) {
-        $int(array.length);
-        newarray(T_BYTE);
+    public AsmBlock ARRAY(byte[] array) {
+        INT(array.length);
+        NEWARRAY(T_BYTE);
         for (int i = 0, j = array.length; i < j; i++) {
             byte v = array[i];
-            dup().$int(i).$int(v).bastore();
+            DUP().INT(i).INT(v).BASTORE();
         }
         return this;
     }
 
     @Override
-    public AsmBlock array(boolean[] array) {
-        $int(array.length);
-        newarray(T_BOOLEAN);
+    public AsmBlock ARRAY(boolean[] array) {
+        INT(array.length);
+        NEWARRAY(T_BOOLEAN);
         for (int i = 0, j = array.length; i < j; i++) {
             boolean v = array[i];
-            dup().$int(i).$int(v ? 1 : 0).bastore();
+            DUP().INT(i).INT(v ? 1 : 0).BASTORE();
         }
         return this;
     }
 
     @Override
-    public <T> AsmBlock array(T[] array, BiIntConsumer<T> producer) {
-        $int(array.length);
+    public <T> AsmBlock ARRAY(T[] array, BiIntConsumer<T> producer) {
+        INT(array.length);
         visitor.visitTypeInsn(ANEWARRAY, Type.getInternalName(array.getClass().getComponentType()));
         for (int i = 0, j = array.length; i < j; i++) {
             T v = array[i];
-            dup().$int(i);
+            DUP().INT(i);
             producer.accept(i, v);
-            aastore();
+            AASTORE();
         }
         return this;
     }

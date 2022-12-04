@@ -95,8 +95,8 @@ public final class ASMInlineCore extends ClassVisitor {
             }
 
             private boolean isInlineName(String name) {
-                if (name.startsWith("inline")) {
-                    name = name.substring("inline".length());
+                if (name.startsWith("__asm__")) {
+                    name = name.substring("__asm__".length());
                     if (name.isEmpty()) {
                         return true;
                     }

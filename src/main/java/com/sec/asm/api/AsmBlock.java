@@ -10,449 +10,451 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("all")
 public interface AsmBlock {
-    static void inline(Consumer<AsmBlock> blocker) {
+    static void __asm__(Consumer<AsmBlock> blocker) {
         throw new UnsupportedOperationException("Must be replaced with bytecode");
     }
 
-    static long inlineJ(Consumer<AsmBlock> blocker) {
+    static long __asm__J(Consumer<AsmBlock> blocker) {
         throw new UnsupportedOperationException("Must be replaced with bytecode");
     }
 
-    static double inlineD(Consumer<AsmBlock> blocker) {
+    static double __asm__D(Consumer<AsmBlock> blocker) {
         throw new UnsupportedOperationException("Must be replaced with bytecode");
     }
 
-    static int inlineI(Consumer<AsmBlock> blocker) {
+    static int __asm__I(Consumer<AsmBlock> blocker) {
         throw new UnsupportedOperationException("Must be replaced with bytecode");
     }
 
-    static float inlineF(Consumer<AsmBlock> blocker) {
+    static float __asm__F(Consumer<AsmBlock> blocker) {
         throw new UnsupportedOperationException("Must be replaced with bytecode");
     }
 
-    static char inlineC(Consumer<AsmBlock> blocker) {
+    static char __asm__C(Consumer<AsmBlock> blocker) {
         throw new UnsupportedOperationException("Must be replaced with bytecode");
     }
 
-    static short inlineS(Consumer<AsmBlock> blocker) {
+    static short __asm__S(Consumer<AsmBlock> blocker) {
         throw new UnsupportedOperationException("Must be replaced with bytecode");
     }
 
-    static byte inlineB(Consumer<AsmBlock> blocker) {
+    static byte __asm__B(Consumer<AsmBlock> blocker) {
         throw new UnsupportedOperationException("Must be replaced with bytecode");
     }
 
-    static boolean inlineZ(Consumer<AsmBlock> blocker) {
+    static boolean __asm__Z(Consumer<AsmBlock> blocker) {
         throw new UnsupportedOperationException("Must be replaced with bytecode");
     }
 
-    static <V> V inlineA(Consumer<AsmBlock> blocker) {
+    static <V> V __asm__A(Consumer<AsmBlock> blocker) {
         throw new UnsupportedOperationException("Must be replaced with bytecode");
     }
 
-    AsmBlock nop();
+    AsmBlock INIT();
 
-    AsmBlock $null();
+    AsmBlock NOP();
 
-    AsmBlock $int(int value);
+    AsmBlock NULL();
 
-    AsmBlock $long(long value);
+    AsmBlock INT(int value);
 
-    AsmBlock $float(float value);
+    AsmBlock LONG(long value);
 
-    AsmBlock $double(double value);
+    AsmBlock FLOAT(float value);
 
-    AsmBlock ldc(String value);
+    AsmBlock DOUBLE(double value);
 
-    AsmBlock ldc(Class<?> type);
+    AsmBlock LDC(String value);
 
-    AsmBlock ldc(Type type);
+    AsmBlock LDC(Class<?> type);
 
-    AsmBlock ldc(MethodType type);
+    AsmBlock LDC(Type type);
 
-    AsmBlock ldc(Handle handle);
+    AsmBlock LDC(MethodType type);
 
-    AsmBlock ldc(ConstantDynamic constantDynamic);
+    AsmBlock LDC(Handle handle);
 
-    AsmBlock iload(int idx);
+    AsmBlock LDC(ConstantDynamic constantDynamic);
 
-    AsmBlock lload(int idx);
+    AsmBlock ILOAD(int idx);
 
-    AsmBlock fload(int idx);
+    AsmBlock LLOAD(int idx);
 
-    AsmBlock dload(int idx);
+    AsmBlock FLOAD(int idx);
 
-    AsmBlock aload(int idx);
+    AsmBlock DLOAD(int idx);
 
-    AsmBlock iaload();
+    AsmBlock ALOAD(int idx);
 
-    AsmBlock laload();
+    AsmBlock IALOAD();
 
-    AsmBlock faload();
+    AsmBlock LALOAD();
 
-    AsmBlock daload();
+    AsmBlock FALOAD();
 
-    AsmBlock aaload();
+    AsmBlock DALOAD();
 
-    AsmBlock baload();
+    AsmBlock AALOAD();
 
-    AsmBlock caload();
+    AsmBlock BALOAD();
 
-    AsmBlock saload();
+    AsmBlock CALOAD();
 
-    AsmBlock istore(int idx);
+    AsmBlock SALOAD();
 
-    AsmBlock lstore(int idx);
+    AsmBlock ISTORE(int idx);
 
-    AsmBlock fstore(int idx);
+    AsmBlock LSTORE(int idx);
 
-    AsmBlock dstore(int idx);
+    AsmBlock FSTORE(int idx);
 
-    AsmBlock astore(int idx);
+    AsmBlock DSTORE(int idx);
 
-    AsmBlock iastore();
+    AsmBlock ASTORE(int idx);
 
-    AsmBlock lastore();
+    AsmBlock IASTORE();
 
-    AsmBlock fastore();
+    AsmBlock LASTORE();
 
-    AsmBlock dastore();
+    AsmBlock FASTORE();
 
-    AsmBlock aastore();
+    AsmBlock DASTORE();
 
-    AsmBlock bastore();
+    AsmBlock AASTORE();
 
-    AsmBlock castore();
+    AsmBlock BASTORE();
 
-    AsmBlock sastore();
+    AsmBlock CASTORE();
 
-    AsmBlock pop();
+    AsmBlock SASTORE();
 
-    AsmBlock pop2();
+    AsmBlock POP();
 
-    AsmBlock dup();
+    AsmBlock POP2();
 
-    AsmBlock dupx1();
+    AsmBlock DUP();
 
-    AsmBlock dupx2();
+    AsmBlock DUPX1();
 
-    AsmBlock dup2();
+    AsmBlock DUPX2();
 
-    AsmBlock dup2x1();
+    AsmBlock DUP2();
 
-    AsmBlock dup2x2();
+    AsmBlock DUP2X1();
 
-    AsmBlock swap();
+    AsmBlock DUP2X2();
 
-    AsmBlock iadd();
+    AsmBlock SWAP();
 
-    AsmBlock ladd();
+    AsmBlock IADD();
 
-    AsmBlock fadd();
+    AsmBlock LADD();
 
-    AsmBlock dadd();
+    AsmBlock FADD();
 
-    AsmBlock isub();
+    AsmBlock DADD();
 
-    AsmBlock lsub();
+    AsmBlock ISUB();
 
-    AsmBlock fsub();
+    AsmBlock LSUB();
 
-    AsmBlock dsub();
+    AsmBlock FSUB();
 
-    AsmBlock imul();
+    AsmBlock DSUB();
 
-    AsmBlock lmul();
+    AsmBlock IMUL();
 
-    AsmBlock fmul();
+    AsmBlock LMUL();
 
-    AsmBlock dmul();
+    AsmBlock FMUL();
 
-    AsmBlock idiv();
+    AsmBlock DMUL();
 
-    AsmBlock ldiv();
+    AsmBlock IDIV();
 
-    AsmBlock fdiv();
+    AsmBlock LDIV();
 
-    AsmBlock ddiv();
+    AsmBlock FDIV();
 
-    AsmBlock irem();
+    AsmBlock DDIV();
 
-    AsmBlock lrem();
+    AsmBlock IREM();
 
-    AsmBlock frem();
+    AsmBlock LREM();
 
-    AsmBlock drem();
+    AsmBlock FREM();
 
-    AsmBlock ineg();
+    AsmBlock DREM();
 
-    AsmBlock lneg();
+    AsmBlock INEG();
 
-    AsmBlock fneg();
+    AsmBlock LNEG();
 
-    AsmBlock dneg();
+    AsmBlock FNEG();
 
-    AsmBlock ishl();
+    AsmBlock DNEG();
 
-    AsmBlock lshl();
+    AsmBlock ISHL();
 
-    AsmBlock ishr();
+    AsmBlock LSHL();
 
-    AsmBlock lshr();
+    AsmBlock ISHR();
 
-    AsmBlock iushr();
+    AsmBlock LSHR();
 
-    AsmBlock lushr();
+    AsmBlock IUSHR();
 
-    AsmBlock iand();
+    AsmBlock LUSHR();
 
-    AsmBlock land();
+    AsmBlock IAND();
 
-    AsmBlock ior();
+    AsmBlock LAND();
 
-    AsmBlock lor();
+    AsmBlock IOR();
 
-    AsmBlock ixor();
+    AsmBlock LOR();
 
-    AsmBlock lxor();
+    AsmBlock IXOR();
 
-    AsmBlock iinc(int idx, int value);
+    AsmBlock LXOR();
 
-    AsmBlock i2l();
+    AsmBlock IINC(int idx, int value);
 
-    AsmBlock i2f();
+    AsmBlock I2L();
 
-    AsmBlock i2d();
+    AsmBlock I2F();
 
-    AsmBlock l2i();
+    AsmBlock I2D();
 
-    AsmBlock l2f();
+    AsmBlock L2I();
 
-    AsmBlock l2d();
+    AsmBlock L2F();
 
-    AsmBlock f2i();
+    AsmBlock L2D();
 
-    AsmBlock f2l();
+    AsmBlock F2I();
 
-    AsmBlock f2d();
+    AsmBlock F2L();
 
-    AsmBlock d2i();
+    AsmBlock F2D();
 
-    AsmBlock d2l();
+    AsmBlock D2I();
 
-    AsmBlock d2f();
+    AsmBlock D2L();
 
-    AsmBlock i2b();
+    AsmBlock D2F();
 
-    AsmBlock i2c();
+    AsmBlock I2B();
 
-    AsmBlock i2s();
+    AsmBlock I2C();
 
-    AsmBlock lcmp();
+    AsmBlock I2S();
 
-    AsmBlock fcmpl();
+    AsmBlock LCMP();
 
-    AsmBlock fcmpg();
+    AsmBlock FCMPL();
 
-    AsmBlock dcmpl();
+    AsmBlock FCMPG();
 
-    AsmBlock dcmpg();
+    AsmBlock DCMPL();
+
+    AsmBlock DCMPG();
 
     // = 0
-    AsmBlock ifeq(Label label);
+    AsmBlock IFEQ(Label label);
 
     // != 0
-    AsmBlock ifne(Label label);
+    AsmBlock IFNE(Label label);
 
     // < 0
-    AsmBlock iflt(Label label);
+    AsmBlock IFLT(Label label);
 
     // >= 0
-    AsmBlock ifge(Label label);
+    AsmBlock IFGE(Label label);
 
     // > 0
-    AsmBlock ifgt(Label label);
+    AsmBlock IFGT(Label label);
 
     // < 0
-    AsmBlock ifle(Label label);
+    AsmBlock IFLE(Label label);
 
     // [v2, v1]: v1 == v2
-    AsmBlock icmpeq(Label label);
+    AsmBlock ICMPEQ(Label label);
 
     // [v2, v1]: v1 != v2
-    AsmBlock icmpne(Label label);
+    AsmBlock ICMPNE(Label label);
 
     // [v2, v1]: v1 < v2
-    AsmBlock icmplt(Label label);
+    AsmBlock ICMPLT(Label label);
 
     // [v2, v1]: v1 >= v2
-    AsmBlock icmpge(Label label);
+    AsmBlock ICMPGE(Label label);
 
     // [v2, v1]: v1 > v2
-    AsmBlock icmpgt(Label label);
+    AsmBlock ICMPGT(Label label);
 
     // [v2, v1]: v1 <= v2
-    AsmBlock icmple(Label label);
+    AsmBlock ICMPLE(Label label);
 
     // [v2, v1]: v1 == v2
-    AsmBlock acmpeq(Label label);
+    AsmBlock ACMPEQ(Label label);
 
     // [v2, v1]: v1 != v2
-    AsmBlock acmpne(Label label);
+    AsmBlock ACMPNE(Label label);
 
-    AsmBlock $goto(Label label);
+    AsmBlock GOTO(Label label);
 
-    AsmBlock tableswitch(int min, int max, Label dflt, Label... labels);
+    AsmBlock TABLESWITCH(int min, int max, Label dflt, Label... labels);
 
-    AsmBlock lookupswitch(int[] keys, Label dflt, Label... labels);
+    AsmBlock LOOKUPSWITCH(int[] keys, Label dflt, Label... labels);
 
-    AsmBlock ireturn();
+    AsmBlock IRETURN();
 
-    AsmBlock lreturn();
+    AsmBlock LRETURN();
 
-    AsmBlock freturn();
+    AsmBlock FRETURN();
 
-    AsmBlock dreturn();
+    AsmBlock DRETURN();
 
-    AsmBlock areturn();
+    AsmBlock ARETURN();
 
-    AsmBlock $return();
+    AsmBlock RETURN();
 
-    AsmBlock getstatic(String owner, String name, String desc);
+    AsmBlock GETSTATIC(String owner, String name, String desc);
 
-    AsmBlock putstatic(String owner, String name, String desc);
+    AsmBlock PUTSTATIC(String owner, String name, String desc);
 
-    AsmBlock getfield(String owner, String name, String desc);
+    AsmBlock GETFIELD(String owner, String name, String desc);
 
-    AsmBlock putfield(String owner, String name, String desc);
+    AsmBlock PUTFIELD(String owner, String name, String desc);
 
-    AsmBlock getstatic(Class<?> owner, String name, String desc);
+    AsmBlock GETSTATIC(Class<?> owner, String name, String desc);
 
-    AsmBlock putstatic(Class<?> owner, String name, String desc);
+    AsmBlock PUTSTATIC(Class<?> owner, String name, String desc);
 
-    AsmBlock getfield(Class<?> owner, String name, String desc);
+    AsmBlock GETFIELD(Class<?> owner, String name, String desc);
 
-    AsmBlock putfield(Class<?> owner, String name, String desc);
+    AsmBlock PUTFIELD(Class<?> owner, String name, String desc);
 
-    AsmBlock getstatic(String owner, String name, Class<?> desc);
+    AsmBlock GETSTATIC(String owner, String name, Class<?> desc);
 
-    AsmBlock putstatic(String owner, String name, Class<?> desc);
+    AsmBlock PUTSTATIC(String owner, String name, Class<?> desc);
 
-    AsmBlock getfield(String owner, String name, Class<?> desc);
+    AsmBlock GETFIELD(String owner, String name, Class<?> desc);
 
-    AsmBlock putfield(String owner, String name, Class<?> desc);
+    AsmBlock PUTFIELD(String owner, String name, Class<?> desc);
 
-    AsmBlock getstatic(Class<?> owner, String name, Class<?> desc);
+    AsmBlock GETSTATIC(Class<?> owner, String name, Class<?> desc);
 
-    AsmBlock putstatic(Class<?> owner, String name, Class<?> desc);
+    AsmBlock PUTSTATIC(Class<?> owner, String name, Class<?> desc);
 
-    AsmBlock getfield(Class<?> owner, String name, Class<?> desc);
+    AsmBlock GETFIELD(Class<?> owner, String name, Class<?> desc);
 
-    AsmBlock putfield(Class<?> owner, String name, Class<?> desc);
+    AsmBlock PUTFIELD(Class<?> owner, String name, Class<?> desc);
 
-    AsmBlock invokevirtual(String owner, String name, String desc);
+    AsmBlock INVOKEVIRTUAL(String owner, String name, String desc);
 
-    AsmBlock invokespecial(String owner, String name, String desc);
+    AsmBlock INVOKESPECIAL(String owner, String name, String desc);
 
-    AsmBlock invokestatic(String owner, String name, String desc);
+    AsmBlock INVOKESTATIC(String owner, String name, String desc);
 
-    AsmBlock invokeinterface(String owner, String name, String desc);
+    AsmBlock INVOKEINTERFACE(String owner, String name, String desc);
 
-    AsmBlock invokedynamic(String name, String desc, Handle bootstrap, Object... args);
+    AsmBlock INVOKEDYNAMIC(String name, String desc, Handle bootstrap, Object... args);
 
-    AsmBlock invokevirtual(String owner, String name, MethodType type);
+    AsmBlock INVOKEVIRTUAL(String owner, String name, MethodType type);
 
-    AsmBlock invokestatic(String owner, String name, MethodType type);
+    AsmBlock INVOKESTATIC(String owner, String name, MethodType type);
 
-    AsmBlock invokeinterface(String owner, String name, MethodType type);
+    AsmBlock INVOKEINTERFACE(String owner, String name, MethodType type);
 
-    AsmBlock invokevirtual(Class<?> owner, String name, String desc);
+    AsmBlock INVOKEVIRTUAL(Class<?> owner, String name, String desc);
 
-    AsmBlock invokespecial(Class<?> owner, String name, String desc);
+    AsmBlock INVOKESPECIAL(Class<?> owner, String name, String desc);
 
-    AsmBlock invokestatic(Class<?> owner, String name, String desc);
+    AsmBlock INVOKESTATIC(Class<?> owner, String name, String desc);
 
-    AsmBlock invokevirtual(Class<?> owner, String name, MethodType type);
+    AsmBlock INVOKEVIRTUAL(Class<?> owner, String name, MethodType type);
 
-    AsmBlock invokespecial(Class<?> owner, String name, MethodType type);
+    AsmBlock INVOKESPECIAL(Class<?> owner, String name, MethodType type);
 
-    AsmBlock invokestatic(Class<?> owner, String name, MethodType type);
+    AsmBlock INVOKESTATIC(Class<?> owner, String name, MethodType type);
 
-    AsmBlock invokeinterface(Class<?> owner, String name, String desc);
+    AsmBlock INVOKEINTERFACE(Class<?> owner, String name, String desc);
 
-    AsmBlock invokeinterface(Class<?> owner, String name, MethodType type);
+    AsmBlock INVOKEINTERFACE(Class<?> owner, String name, MethodType type);
 
-    AsmBlock $new(String type);
+    AsmBlock NEW(String type);
 
-    AsmBlock $new(Class<?> type);
+    AsmBlock NEW(Class<?> type);
 
-    AsmBlock $new(Type type);
+    AsmBlock NEW(Type type);
 
-    AsmBlock newarray(int type);
+    AsmBlock NEWARRAY(int type);
 
-    AsmBlock newarray(String type);
+    AsmBlock NEWARRAY(String type);
 
-    AsmBlock arraylength();
+    AsmBlock ARRAYLENGTH();
 
-    AsmBlock athrow();
+    AsmBlock ATHROW();
 
-    AsmBlock checkcast(String type);
+    AsmBlock CHECKCAST(String type);
 
-    AsmBlock $instanceof(String type);
+    AsmBlock INSTANCEOF(String type);
 
-    AsmBlock monitorenter();
+    AsmBlock MONITORENTER();
 
-    AsmBlock monitorexit();
+    AsmBlock MONITOREXIT();
 
-    AsmBlock multinewarray(String desc, int dimensions);
+    AsmBlock MULTINEWARRAY(String desc, int dimensions);
 
     // v == null
-    AsmBlock ifnull(Label label);
+    AsmBlock IFNULL(Label label);
 
     // v != null
-    AsmBlock ifnonnull(Label label);
+    AsmBlock IFNONNULL(Label label);
 
-    AsmBlock label(Label label);
+    AsmBlock LABEL(Label label);
 
-    AsmBlock $try(Label start, Label end, Label handler, String type);
+    AsmBlock TRY(Label start, Label end, Label handler, String type);
 
-    AsmBlock line(int line, Label start);
+    AsmBlock LINE(int line, Label start);
 
-    AsmBlock parameter(String name, int access);
+    AsmBlock PARAMETER(String name, int access);
 
-    AsmBlock array(long[] array, int off, int len);
+    AsmBlock ARRAY(long[] array, int off, int len);
 
-    AsmBlock array(double[] array, int off, int len);
+    AsmBlock ARRAY(double[] array, int off, int len);
 
-    AsmBlock array(int[] array, int off, int len);
+    AsmBlock ARRAY(int[] array, int off, int len);
 
-    AsmBlock array(float[] array, int off, int len);
+    AsmBlock ARRAY(float[] array, int off, int len);
 
-    AsmBlock array(char[] array, int off, int len);
+    AsmBlock ARRAY(char[] array, int off, int len);
 
-    AsmBlock array(short[] array, int off, int len);
+    AsmBlock ARRAY(short[] array, int off, int len);
 
-    AsmBlock array(byte[] array, int off, int len);
+    AsmBlock ARRAY(byte[] array, int off, int len);
 
-    AsmBlock array(boolean[] array, int off, int len);
+    AsmBlock ARRAY(boolean[] array, int off, int len);
 
-    <T> AsmBlock array(T[] array, int off, int len, BiIntConsumer<T> producer);
+    <T> AsmBlock ARRAY(T[] array, int off, int len, BiIntConsumer<T> producer);
 
-    AsmBlock array(long[] array);
+    AsmBlock ARRAY(long[] array);
 
-    AsmBlock array(double[] array);
+    AsmBlock ARRAY(double[] array);
 
-    AsmBlock array(int[] array);
+    AsmBlock ARRAY(int[] array);
 
-    AsmBlock array(float[] array);
+    AsmBlock ARRAY(float[] array);
 
-    AsmBlock array(char[] array);
+    AsmBlock ARRAY(char[] array);
 
-    AsmBlock array(short[] array);
+    AsmBlock ARRAY(short[] array);
 
-    AsmBlock array(byte[] array);
+    AsmBlock ARRAY(byte[] array);
 
-    AsmBlock array(boolean[] array);
+    AsmBlock ARRAY(boolean[] array);
 
-    <T> AsmBlock array(T[] array, BiIntConsumer<T> producer);
+    <T> AsmBlock ARRAY(T[] array, BiIntConsumer<T> producer);
 }
