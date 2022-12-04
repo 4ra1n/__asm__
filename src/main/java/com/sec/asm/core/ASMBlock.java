@@ -1,4 +1,4 @@
-package com.sec.asm.api;
+package com.sec.asm.core;
 
 import com.sec.asm.run.Runner;
 import org.objectweb.asm.*;
@@ -61,7 +61,7 @@ public interface ASMBlock {
 
     ASMBlock NOP();
 
-    ASMBlock NULL();
+    ASMBlock ACONST_NULL();
 
     ASMBlock INT(int value);
 
@@ -86,6 +86,20 @@ public interface ASMBlock {
     ASMBlock LDC_W();
 
     ASMBlock LDC_2W();
+
+    ASMBlock LCONST_0();
+
+    ASMBlock LCONST_1();
+
+    ASMBlock DCONST_0();
+
+    ASMBlock DCONST_1();
+
+    ASMBlock FCONST_0();
+
+    ASMBlock FCONST_1();
+
+    ASMBlock FCONST_2();
 
     ASMBlock ICONST_M1();
 

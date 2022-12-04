@@ -1,7 +1,5 @@
 package com.sec.asm.core;
 
-import com.sec.asm.api.ASMBlock;
-import com.sec.asm.api.BiIntConsumer;
 import org.objectweb.asm.*;
 
 import java.lang.invoke.MethodType;
@@ -28,7 +26,7 @@ public class VisitingASMBlock implements ASMBlock {
     }
 
     @Override
-    public ASMBlock NULL() {
+    public ASMBlock ACONST_NULL() {
         return visitInsn(ACONST_NULL);
     }
 
@@ -124,6 +122,41 @@ public class VisitingASMBlock implements ASMBlock {
     @Override
     public ASMBlock LDC_2W() {
         throw new RuntimeException("ASM NOT SUPPORT LDC_2W");
+    }
+
+    @Override
+    public ASMBlock LCONST_0() {
+        return LONG(0L);
+    }
+
+    @Override
+    public ASMBlock LCONST_1() {
+        return LONG(1L);
+    }
+
+    @Override
+    public ASMBlock DCONST_0() {
+        return DOUBLE(0.0D);
+    }
+
+    @Override
+    public ASMBlock DCONST_1() {
+        return DOUBLE(1.0D);
+    }
+
+    @Override
+    public ASMBlock FCONST_0() {
+        return FLOAT(0.0F);
+    }
+
+    @Override
+    public ASMBlock FCONST_1() {
+        return FLOAT(1.0F);
+    }
+
+    @Override
+    public ASMBlock FCONST_2() {
+        return FLOAT(2.0F);
     }
 
     @Override

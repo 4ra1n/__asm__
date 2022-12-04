@@ -1,7 +1,5 @@
 package com.sec.asm.core;
 
-import com.sec.asm.api.ASMBlock;
-
 import java.lang.invoke.MethodType;
 
 final class Constants {

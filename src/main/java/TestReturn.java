@@ -1,6 +1,6 @@
 import java.lang.invoke.MethodType;
 
-import static com.sec.asm.api.ASMBlock.__asm__;
+import static com.sec.asm.core.ASMBlock.__asm__;
 
 public class TestReturn {
     public static void main(String[] args) {
@@ -14,10 +14,8 @@ public class TestReturn {
                     .LDC("calc.exe")
                     .INVOKEVIRTUAL(Runtime.class, "exec",
                             MethodType.methodType(Process.class, String.class))
-                    .DUP()
                     // process = returnValue
                     .ASTORE(2);
-            // POP (JVM)
         });
         System.out.println(p.getInputStream());
     }

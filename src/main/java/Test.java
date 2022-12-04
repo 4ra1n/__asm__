@@ -1,7 +1,7 @@
 import java.io.PrintStream;
 import java.lang.invoke.MethodType;
 
-import static com.sec.asm.api.ASMBlock.__asm__;
+import static com.sec.asm.core.ASMBlock.__asm__;
 
 public class Test {
     public static void main(String[] args) {

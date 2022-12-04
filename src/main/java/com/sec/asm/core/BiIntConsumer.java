@@ -1,4 +1,4 @@
-package com.sec.asm.api;
+package com.sec.asm.core;
 
 import java.util.function.BiConsumer;
 
