@@ -10,12 +10,12 @@ import java.util.Map;
 
 final class CollectVisitor extends ClassVisitor {
 
-    private final Map<MethodInfo, ClassWriter> writers;
+    private final Map<MethodRef, ClassWriter> writers;
     private int version;
     private String name;
 
     public CollectVisitor(
-            Map<MethodInfo, ClassWriter> writers) {
+            Map<MethodRef, ClassWriter> writers) {
         super(Opcodes.ASM9);
         this.writers = writers;
     }
@@ -36,7 +36,7 @@ final class CollectVisitor extends ClassVisitor {
             writer.visit(version, Opcodes.ACC_PUBLIC, className,
                     null, "java/lang/Object", null);
             MethodVisitor proxy = writer.visitMethod(access, name, descriptor, signature, exceptions);
-            writers.put(new MethodInfo(name, descriptor), writer);
+            writers.put(new MethodRef(name, descriptor), writer);
             return proxy;
         }
         return null;

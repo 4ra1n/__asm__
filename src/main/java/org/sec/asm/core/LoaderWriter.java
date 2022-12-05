@@ -2,11 +2,11 @@ package org.sec.asm.core;
 
 import org.objectweb.asm.ClassWriter;
 
-final class LoaderClassWriter extends ClassWriter {
+final class LoaderWriter extends ClassWriter {
 
     private final ClassLoader loader;
 
-    public LoaderClassWriter(int flags, ClassLoader loader) {
+    public LoaderWriter(int flags, ClassLoader loader) {
         super(flags);
         this.loader = loader;
     }

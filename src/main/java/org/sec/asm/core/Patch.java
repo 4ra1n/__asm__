@@ -13,7 +13,7 @@ public final class Patch {
 
     public static byte[] patchBytes(ClassLoader loader, byte[] bytes) {
         ClassReader reader = new ClassReader(bytes);
-        Map<MethodInfo, ClassWriter> methods = new HashMap<>();
+        Map<MethodRef, ClassWriter> methods = new HashMap<>();
         reader.accept(new CollectVisitor(methods), 0);
         if (methods.isEmpty()) {
             return bytes;
@@ -22,7 +22,7 @@ public final class Patch {
         ASMVisitor inline = new ASMVisitor(rewriter, loader, methods);
         reader.accept(inline, 0);
         if (inline.rewrite) {
-            ClassWriter writer = new LoaderClassWriter(ClassWriter.COMPUTE_FRAMES, loader);
+            ClassWriter writer = new LoaderWriter(ClassWriter.COMPUTE_FRAMES, loader);
             ASMUtil.copySymbolTable(rewriter, writer);
             new ClassReader(rewriter.toByteArray()).accept(writer, 0);
             return writer.toByteArray();

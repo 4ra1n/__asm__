@@ -8,6 +8,10 @@ import java.lang.invoke.MethodType;
 public interface ASMOpcodes {
     ASMOpcodes INIT();
 
+    ASMOpcodes BIPUSH(int value);
+
+    ASMOpcodes SIPUSH(int value);
+
     ASMOpcodes NOP();
 
     ASMOpcodes ACONST_NULL();

@@ -17,6 +17,23 @@ public class ASMCoreVisitor implements ASMOpcodes, ASM {
 
     @Override
     public ASMOpcodes INIT() {
+        // this is not necessary
+        // just for a good format
+        if (this.visitor == null) {
+            throw new RuntimeException("error");
+        }
+        return this;
+    }
+
+    @Override
+    public ASMOpcodes BIPUSH(int value) {
+        visitor.visitIntInsn(BIPUSH, value);
+        return this;
+    }
+
+    @Override
+    public ASMOpcodes SIPUSH(int value) {
+        visitor.visitIntInsn(SIPUSH, value);
         return this;
     }
 
@@ -34,6 +51,15 @@ public class ASMCoreVisitor implements ASMOpcodes, ASM {
     public ASMOpcodes INT(int value) {
         MethodVisitor visitor = this.visitor;
         if (value >= -1 && value <= 5) {
+            /*
+            int ICONST_M1 = 2;
+            int ICONST_0 = 3;
+            int ICONST_1 = 4;
+            int ICONST_2 = 5;
+            int ICONST_3 = 6;
+            int ICONST_4 = 7;
+            int ICONST_5 = 8;
+             */
             visitor.visitInsn(value + 3);
         } else if (value >= Byte.MIN_VALUE && value <= Byte.MAX_VALUE) {
             visitor.visitIntInsn(BIPUSH, value);
@@ -49,6 +75,10 @@ public class ASMCoreVisitor implements ASMOpcodes, ASM {
     public ASMOpcodes LONG(long value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0L || value == 1L) {
+            /*
+            int LCONST_0 = 9;
+            int LCONST_1 = 10;
+             */
             visitor.visitInsn((int) (value + 9));
         } else {
             visitor.visitLdcInsn(value);
@@ -60,6 +90,11 @@ public class ASMCoreVisitor implements ASMOpcodes, ASM {
     public ASMOpcodes FLOAT(float value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0.0F || value == 1.0F || value == 2.0F) {
+            /*
+            int FCONST_0 = 11;
+            int FCONST_1 = 12;
+            int FCONST_2 = 13;
+             */
             visitor.visitInsn((int) value + 11);
         } else {
             visitor.visitLdcInsn(value);
@@ -71,6 +106,10 @@ public class ASMCoreVisitor implements ASMOpcodes, ASM {
     public ASMOpcodes DOUBLE(double value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0.0 || value == 1.0) {
+            /*
+            int DCONST_0 = 14;
+            int DCONST_1 = 15;
+             */
             visitor.visitInsn((int) value + 14);
         } else {
             visitor.visitLdcInsn(value);

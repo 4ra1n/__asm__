@@ -2,12 +2,12 @@ package org.sec.asm.core;
 
 import java.util.Objects;
 
-final class MethodInfo {
+final class MethodRef {
 
     final String name;
     final String desc;
 
-    MethodInfo(String name, String desc) {
+    MethodRef(String name, String desc) {
         this.name = name;
         this.desc = desc;
     }
@@ -17,11 +17,11 @@ final class MethodInfo {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof MethodInfo)) {
+        if (!(o instanceof MethodRef)) {
             return false;
         }
 
-        MethodInfo that = (MethodInfo) o;
+        MethodRef that = (MethodRef) o;
 
         if (!Objects.equals(name, that.name)) {
             return false;

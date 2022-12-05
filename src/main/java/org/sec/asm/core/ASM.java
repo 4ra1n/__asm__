@@ -18,6 +18,7 @@ public interface ASM {
             System.out.println("|-----------------------------------|");
 
             ClassLoader cl = ClassLoader.getSystemClassLoader();
+            // important: only jdk8 allow
             URL[] urls = ((URLClassLoader) cl).getURLs();
             List<URL> targetUrls = new ArrayList<>();
             for (URL u : urls) {
@@ -43,7 +44,7 @@ public interface ASM {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            // do not allow other output
             System.setOut(new PrintStream(new OutputStream() {
                 @Override
                 public void write(int b) {
