@@ -14,6 +14,10 @@ public class TestExec {
                 .LDC("open /System/Applications/Calculator.app")
                 .INVOKEVIRTUAL(Runtime.class, "exec",
                         MethodType.methodType(Process.class, String.class))
+                .DUP()
+                .POP()
+                .ALOAD(0)
+                .ASTORE(3)
                 .ASTORE(2)
         );
         if (p != null) {

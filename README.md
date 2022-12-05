@@ -144,6 +144,33 @@ Local Variables after invoke:
 
 We can use `ASTORE 2` to save Process return ref to Process p ptr of local variables.
 
+(4) Junk code:
+
+```java
+public class TestExec {
+    public static void main(String[] args) {
+        Runtime r = Runtime.getRuntime();
+        Process p = null;
+        __asm__(asm -> asm.INIT()
+                .ALOAD(1)
+                .LDC("open /System/Applications/Calculator.app")
+                .INVOKEVIRTUAL(Runtime.class, "exec",
+                        MethodType.methodType(Process.class, String.class))
+                .DUP()
+                .POP()
+                .ALOAD(0)
+                .ASTORE(3)
+                .ASTORE(2)
+        );
+        if (p != null) {
+            System.out.println("not null");
+        }
+    }
+}
+```
+
+We can add some junk code, but run normally. Have fun.
+
 ## Thanks
 
 The core code is from: https://github.com/xxDark/asm-inline
