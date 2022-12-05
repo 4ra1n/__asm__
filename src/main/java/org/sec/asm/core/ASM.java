@@ -31,10 +31,14 @@ public interface ASM {
                 return;
             }
             try {
-                for (URL targetUrl : urls) {
-                    Runner.run(new String[]{
-                            targetUrl.toURI().getPath().substring(1)
-                    });
+                for (URL targetUrl : targetUrls) {
+                    String temp;
+                    if(System.getProperty("os.name").toLowerCase().contains("windows")){
+                        temp = targetUrl.toURI().getPath().substring(1);
+                    }else{
+                        temp = targetUrl.toURI().getPath();
+                    }
+                    Runner.run(new String[]{temp});
                 }
             } catch (Exception e) {
                 e.printStackTrace();
