@@ -7,10 +7,6 @@ import org.objectweb.asm.ClassWriter;
 import java.util.*;
 
 public final class Patch {
-
-    public Patch() {
-    }
-
     public static byte[] patchBytes(ClassLoader loader, byte[] bytes) {
         ClassReader reader = new ClassReader(bytes);
         Map<MethodRef, ClassWriter> methods = new HashMap<>();

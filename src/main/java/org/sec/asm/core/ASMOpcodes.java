@@ -16,13 +16,11 @@ public interface ASMOpcodes {
 
     ASMOpcodes ACONST_NULL();
 
-    ASMOpcodes INT(int value);
+    ASMOpcodes LDC(long value);
 
-    ASMOpcodes LONG(long value);
+    ASMOpcodes LDC(float value);
 
-    ASMOpcodes FLOAT(float value);
-
-    ASMOpcodes DOUBLE(double value);
+    ASMOpcodes LDC(double value);
 
     ASMOpcodes LDC(String value);
 

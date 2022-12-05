@@ -47,8 +47,7 @@ public class ASMCoreVisitor implements ASMOpcodes, ASM {
         return visitInsn(ACONST_NULL);
     }
 
-    @Override
-    public ASMOpcodes INT(int value) {
+    private ASMOpcodes INT(int value) {
         MethodVisitor visitor = this.visitor;
         if (value >= -1 && value <= 5) {
             /*
@@ -71,8 +70,7 @@ public class ASMCoreVisitor implements ASMOpcodes, ASM {
         return this;
     }
 
-    @Override
-    public ASMOpcodes LONG(long value) {
+    private ASMOpcodes LONG(long value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0L || value == 1L) {
             /*
@@ -86,8 +84,7 @@ public class ASMCoreVisitor implements ASMOpcodes, ASM {
         return this;
     }
 
-    @Override
-    public ASMOpcodes FLOAT(float value) {
+    private ASMOpcodes FLOAT(float value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0.0F || value == 1.0F || value == 2.0F) {
             /*
@@ -102,8 +99,7 @@ public class ASMCoreVisitor implements ASMOpcodes, ASM {
         return this;
     }
 
-    @Override
-    public ASMOpcodes DOUBLE(double value) {
+    private ASMOpcodes DOUBLE(double value) {
         MethodVisitor visitor = this.visitor;
         if (value == 0.0 || value == 1.0) {
             /*
@@ -115,6 +111,21 @@ public class ASMCoreVisitor implements ASMOpcodes, ASM {
             visitor.visitLdcInsn(value);
         }
         return this;
+    }
+
+    @Override
+    public ASMOpcodes LDC(long value) {
+        return visitLdcInsn(value);
+    }
+
+    @Override
+    public ASMOpcodes LDC(float value) {
+        return visitLdcInsn(value);
+    }
+
+    @Override
+    public ASMOpcodes LDC(double value) {
+        return visitLdcInsn(value);
     }
 
     @Override
@@ -1092,6 +1103,7 @@ public class ASMCoreVisitor implements ASMOpcodes, ASM {
         return this;
     }
 
+    @Override
     public ASMOpcodes WIDE() {
         throw new RuntimeException("ASM NOT SUPPORT LDC_W");
     }
